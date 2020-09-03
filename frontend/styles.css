@@ -1,0 +1,9 @@
+.board {
+  border-collapse: collapse;
+}
+
+.board td{
+  border: 1px solid black;
+  width: 1.5rem;
+  height: 1.5rem;
+}
