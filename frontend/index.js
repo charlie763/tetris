@@ -121,10 +121,21 @@ class zPiece extends Piece {
   }
 }
 
+class sPiece extends Piece {
+  constructor(){
+    super();
+    this.cells = sPiece.makeCells();
+  }
+
+  static makeCells(){ //change to static method?
+    return [new Cell(5,0), new Cell(5,1), new Cell(6,0), new Cell(6,1)];
+  }
+}
+
 document.addEventListener('DOMContentLoaded', ()=>{
   const board = document.querySelector('.board');
   displayNewBoard();
-  const testPiece = new lPiece();
+  const testPiece = new sPiece();
   addPiece(testPiece);
 
   function displayNewBoard(){
