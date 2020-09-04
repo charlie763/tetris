@@ -85,10 +85,32 @@ class lPiece extends Piece {
   }
 }
 
+class tPiece extends Piece {
+  constructor(){
+    super();
+    this.cells = tPiece.makeCells();
+  }
+
+  static makeCells(){ //change to static method?
+    return [new Cell(4,0), new Cell(5,0), new Cell(6,0), new Cell(5,1)];
+  }
+}
+
+class zPiece extends Piece {
+  constructor(){
+    super();
+    this.cells = zPiece.makeCells();
+  }
+
+  static makeCells(){ //change to static method?
+    return [new Cell(4,1), new Cell(5,1), new Cell(5,0), new Cell(6,0)];
+  }
+}
+
 document.addEventListener('DOMContentLoaded', ()=>{
   const board = document.querySelector('.board');
   displayNewBoard();
-  const testPiece = new lPiece();
+  const testPiece = new tPiece();
   addPiece(testPiece);
 
   function displayNewBoard(){
