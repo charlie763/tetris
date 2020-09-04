@@ -107,12 +107,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
     // make moves more efficient by doing it per cell?
     for (const cell of piece.cells){
       BOARD[cell.yPos][cell.xPos] = 0;
-      displayCell = document.getElementById(`x${cell.xPos}y${cell.yPos}`);
-      displayCell.style.backgroundColor = none;
+      const displayCell = document.getElementById(`x${cell.xPos}y${cell.yPos}`);
+      displayCell.style.backgroundColor = "transparent";
     }
     piece.move(direction);
     addPiece(piece);
   }
-    
+  
+  //note: the key down event listener doesn't start until user clicks
+  document.addEventListener('keydown', (e)=>{
+    const keyDownTranslator = {
+      ArrowLeft: "left", 
+      ArrowRight: "right", 
+      ArrowDown: "down", 
+      ArrowUp: "rotate"
+    };
+    return movePiece(testPiece, keyDownTranslator[e.key]);
+  });
 });
 
