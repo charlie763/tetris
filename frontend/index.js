@@ -45,6 +45,10 @@ class Piece{
     // this.color = setRandomColor();
   }
 
+  static random(){
+    return PIECE_OPTIONS[Math.floor(Math.random()*5)]();
+  }
+
   prepMove(xChange, yChange){
     return this.cells.map(cell => {
       return {x: cell.x + xChange, y: cell.y + yChange}
@@ -132,6 +136,13 @@ class sPiece extends Piece {
   }
 }
 
+const PIECE_OPTIONS = [()=> new tPiece(), 
+  ()=> new iPiece(), 
+  ()=> new lPiece(), 
+  ()=> new zPiece(), 
+  ()=> new sPiece()
+];
+
 document.addEventListener('DOMContentLoaded', ()=>{
   document.addEventListener('keydown', (e)=>{ //refactor this code
     const keyDownTranslator = {
@@ -146,7 +157,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
   const board = document.querySelector('.board');
   displayNewBoard();
-  let activePiece = new sPiece();
+  let activePiece = Piece.random();
   addPiece(activePiece);
 
   //game logic 
@@ -157,10 +168,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
       activePiece.moveTo(endPositions);
     } else {
       addPiece(activePiece);
-      activePiece = new lPiece();
+      activePiece = Piece.random();
     }
     addPiece(activePiece);
-  }, 100);
+  }, 200);
 
   //display functions  
   function displayNewBoard(){
