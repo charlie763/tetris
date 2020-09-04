@@ -52,7 +52,6 @@ class Piece{
   }
 
   isValidMove(endPositions){
-    debugger;
     return endPositions.every((position)=> BOARD[position['y']][position['x']] === 0);
   }
 
@@ -67,10 +66,10 @@ class Piece{
 class iPiece extends Piece {
   constructor(){
     super();
-    this.cells = this.makeCells();
+    this.cells = iPiece.makeCells();
   }
 
-  makeCells(){ //change to static method?
+  static makeCells(){ //change to static method?
     return [new Cell(6,0), new Cell(6,1), new Cell(6,2), new Cell(6,3)];
   }
 }
@@ -79,7 +78,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const board = document.querySelector('.board');
   displayNewBoard();
   const testPiece = new iPiece();
-  testPiece.makeCells();
   addPiece(testPiece);
 
   function displayNewBoard(){
