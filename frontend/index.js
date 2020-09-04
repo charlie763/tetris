@@ -31,7 +31,7 @@ const BOARD = [
 class Piece{
   //should consist of 4 cells
   //should have children classes for the different types of pieces
-  constructor(color){
+  constructor(){
     this.cells = this.makeCells();
     this.color = "red";
     // this.color = setRandomColor();
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     for (const cell of piece.cells){
       BOARD[cell.yPos][cell.xPos] = cell;
       displayCell = document.getElementById(`x${cell.xPos}y${cell.yPos}`);
-      displayCell.style.backgroundColor = 'blue';
+      displayCell.style.backgroundColor = piece.color;
     }
   }
 
