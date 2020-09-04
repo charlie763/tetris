@@ -133,11 +133,36 @@ class sPiece extends Piece {
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
+  document.addEventListener('keydown', (e)=>{ //refactor this code
+    const keyDownTranslator = {
+      ArrowLeft: "left", 
+      ArrowRight: "right", 
+      ArrowDown: "down", 
+      ArrowUp: "rotate"
+    };
+    if (Object.keys(keyDownTranslator).includes(e.key)){
+      return movePiece(activePiece, keyDownTranslator[e.key]);
+    }
+  });
   const board = document.querySelector('.board');
   displayNewBoard();
-  const testPiece = new sPiece();
-  addPiece(testPiece);
+  let activePiece = new sPiece();
+  addPiece(activePiece);
 
+  //game logic 
+  const movementInterval = window.setInterval(()=>{
+    const endPositions = activePiece.prepMove(0,1)
+    erasePiece(activePiece);
+    if (activePiece.isValidMove(endPositions)){
+      activePiece.moveTo(endPositions);
+    } else {
+      addPiece(activePiece);
+      activePiece = new lPiece();
+    }
+    addPiece(activePiece);
+  }, 100);
+
+  //display functions  
   function displayNewBoard(){
     for (const rowIndex in BOARD){
       const row = document.createElement('tr');
@@ -191,21 +216,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     erasePiece(piece);
     if (piece.isValidMove(endPositions)){
       piece.moveTo(endPositions);
-    }
+    } 
     addPiece(piece);
   }
-  
+
   //note: the key down event listener doesn't start until user clicks
-  document.addEventListener('keydown', (e)=>{
-    const keyDownTranslator = {
-      ArrowLeft: "left", 
-      ArrowRight: "right", 
-      ArrowDown: "down", 
-      ArrowUp: "rotate"
-    };
-    if (Object.keys(keyDownTranslator).includes(e.key)){
-      return movePiece(testPiece, keyDownTranslator[e.key]);
-    }
-  });
+  
 });
 
