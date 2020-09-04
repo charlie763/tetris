@@ -46,20 +46,36 @@ class Piece{
   }
   
   move(direction){
-    //need to add logic protecting against collisions or maybe have that in event handler
-    for (const cell of this.cells){
-      switch(direction){
-        case "left":
-          cell.xPos -= 1;
-          break;
-        case "right":
-          cell.xPos += 1;
-          break;
-        case "down":
-          cell.yPos += 1;
-          break; 
-      }
+    let endPositions;
+    switch(direction){
+      case "left":
+        endPositions = this.prepMove(-1,0)
+        break;
+      case "right":
+        endPositions = this.prepMove(1,0)
+        break;
+      case "down":
+        endPositions = this.prepMove(0,1)
+        break; 
     }
+
+    if (this.validMove(endPositions)){
+      for (const i in this.cells){
+        this.cells[i].xPos = endPositions[i].x
+        this.cells[i].yPos = endPositions[i].y
+      }
+    } 
+
+  }
+
+  prepMove(xChange, yChange){
+    return this.cells.map(cell => {
+      return {x: cell.xPos + xChange, y: cell.yPos + yChange}
+    })
+  }
+
+  validMove(endPositions){
+    return endPositions.every((position)=> BOARD[position['y']][position['x']] === 0);
   }
 }
 
