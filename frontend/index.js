@@ -44,29 +44,6 @@ class Piece{
     this.color = "red";
     // this.color = setRandomColor();
   }
-  
-  move(direction){
-    let endPositions;
-    switch(direction){
-      case "left":
-        endPositions = this.prepMove(-1,0)
-        break;
-      case "right":
-        endPositions = this.prepMove(1,0)
-        break;
-      case "down":
-        endPositions = this.prepMove(0,1)
-        break; 
-    }
-
-    if (this.validMove(endPositions)){
-      for (const i in this.cells){
-        this.cells[i].xPos = endPositions[i].x
-        this.cells[i].yPos = endPositions[i].y
-      }
-    } 
-
-  }
 
   prepMove(xChange, yChange){
     return this.cells.map(cell => {
@@ -74,8 +51,16 @@ class Piece{
     })
   }
 
-  validMove(endPositions){
+  isValidMove(endPositions){
+    debugger;
     return endPositions.every((position)=> BOARD[position['y']][position['x']] === 0);
+  }
+
+  moveTo(endPositions){
+    for (const i in this.cells){
+      this.cells[i].xPos = endPositions[i].x
+      this.cells[i].yPos = endPositions[i].y
+    }
   }
 }
 
@@ -120,15 +105,33 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
   }
 
-  function movePiece(piece, direction){
-    //logic for catching invalid moves first
-    // make moves more efficient by doing it per cell?
+  function erasePiece(piece){
     for (const cell of piece.cells){
       BOARD[cell.yPos][cell.xPos] = 0;
       const displayCell = document.getElementById(`x${cell.xPos}y${cell.yPos}`);
       displayCell.style.backgroundColor = "transparent";
     }
-    piece.move(direction);
+  }
+
+  function movePiece(piece, direction){
+    // make moves more efficient by doing it per cell?
+    let endPositions;
+    switch(direction){
+      case "left":
+        endPositions = piece.prepMove(-1,0)
+        break;
+      case "right":
+        endPositions = piece.prepMove(1,0)
+        break;
+      case "down":
+        endPositions = piece.prepMove(0,1)
+        break; 
+    }
+
+    erasePiece(piece);
+    if (piece.isValidMove(endPositions)){
+      piece.moveTo(endPositions);
+    }
     addPiece(piece);
   }
   
