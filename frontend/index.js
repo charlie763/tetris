@@ -31,9 +31,9 @@ const BOARD = [
 
 class Cell{
   //should have x and y position properties
-  constructor(xPos, yPos){
-    this.xPos = xPos;
-    this.yPos = yPos;
+  constructor(x, y){
+    this.x = x;
+    this.y = y;
   }
 }
 
@@ -47,9 +47,23 @@ class Piece{
 
   prepMove(xChange, yChange){
     return this.cells.map(cell => {
-      return {x: cell.xPos + xChange, y: cell.yPos + yChange}
+      return {x: cell.x + xChange, y: cell.y + yChange}
     })
   }
+
+  prepRotation(){
+    //clean up this code
+    const pivot = this.cells[1];
+    function xPivot(cell){
+      return cell.x + (pivot.y - cell.y) + (pivot.x - cell.x)
+    }
+    function yPivot(cell){
+      return cell.y + (pivot.y - cell.y) - (pivot.x - cell.x)
+    }
+    return this.cells.map(cell => {
+      return {x: xPivot(cell), y: yPivot(cell)}
+    });
+  }  
 
   isValidMove(endPositions){
     return endPositions.every((position)=> BOARD[position['y']][position['x']] === 0);
@@ -57,8 +71,8 @@ class Piece{
 
   moveTo(endPositions){
     for (const i in this.cells){
-      this.cells[i].xPos = endPositions[i].x
-      this.cells[i].yPos = endPositions[i].y
+      this.cells[i].x = endPositions[i].x
+      this.cells[i].y = endPositions[i].y
     }
   }
 }
@@ -110,7 +124,7 @@ class zPiece extends Piece {
 document.addEventListener('DOMContentLoaded', ()=>{
   const board = document.querySelector('.board');
   displayNewBoard();
-  const testPiece = new zPiece();
+  const testPiece = new lPiece();
   addPiece(testPiece);
 
   function displayNewBoard(){
@@ -130,16 +144,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function addPiece(piece){
     for (const cell of piece.cells){
-      BOARD[cell.yPos][cell.xPos] = cell;
-      displayCell = document.getElementById(`x${cell.xPos}y${cell.yPos}`);
+      BOARD[cell.y][cell.x] = cell;
+      displayCell = document.getElementById(`x${cell.x}y${cell.y}`);
       displayCell.style.backgroundColor = piece.color;
     }
   }
 
   function erasePiece(piece){
     for (const cell of piece.cells){
-      BOARD[cell.yPos][cell.xPos] = 0;
-      const displayCell = document.getElementById(`x${cell.xPos}y${cell.yPos}`);
+      BOARD[cell.y][cell.x] = 0;
+      const displayCell = document.getElementById(`x${cell.x}y${cell.y}`);
       displayCell.style.backgroundColor = "transparent";
     }
   }
@@ -157,6 +171,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
       case "down":
         endPositions = piece.prepMove(0,1)
         break; 
+      case "rotate":
+        // debugger;
+        endPositions = piece.prepRotation()
+        break;
     }
 
     erasePiece(piece);
