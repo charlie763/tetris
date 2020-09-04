@@ -45,6 +45,22 @@ class Piece{
     // this.color = setRandomColor();
   }
   
+  move(direction){
+    //need to add logic protecting against collisions
+    for (const cell of this.cells){
+      switch(direction){
+        case "left":
+          cell.xPos -= 1;
+          break;
+        case "right":
+          cell.xPos += 1;
+          break;
+        case "down":
+          cell.yPos += 1;
+          break; 
+      }
+    }
+  }
 }
 
 class lPiece extends Piece {
