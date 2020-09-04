@@ -110,7 +110,7 @@ class zPiece extends Piece {
 document.addEventListener('DOMContentLoaded', ()=>{
   const board = document.querySelector('.board');
   displayNewBoard();
-  const testPiece = new tPiece();
+  const testPiece = new zPiece();
   addPiece(testPiece);
 
   function displayNewBoard(){
@@ -174,7 +174,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
       ArrowDown: "down", 
       ArrowUp: "rotate"
     };
-    return movePiece(testPiece, keyDownTranslator[e.key]);
+    if (Object.keys(keyDownTranslator).includes(e.key)){
+      return movePiece(testPiece, keyDownTranslator[e.key]);
+    }
   });
 });
 
