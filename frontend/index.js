@@ -46,7 +46,7 @@ class Piece{
   }
   
   move(direction){
-    //need to add logic protecting against collisions
+    //need to add logic protecting against collisions or maybe have that in event handler
     for (const cell of this.cells){
       switch(direction){
         case "left":
@@ -101,5 +101,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
       displayCell.style.backgroundColor = piece.color;
     }
   }
+
+  function movePiece(piece, direction){
+    //logic for catching invalid moves first
+    // make moves more efficient by doing it per cell?
+    for (const cell of piece.cells){
+      BOARD[cell.yPos][cell.xPos] = 0;
+      displayCell = document.getElementById(`x${cell.xPos}y${cell.yPos}`);
+      displayCell.style.backgroundColor = none;
+    }
+    piece.move(direction);
+    addPiece(piece);
+  }
+    
 });
 
