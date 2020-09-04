@@ -70,14 +70,25 @@ class iPiece extends Piece {
   }
 
   static makeCells(){ //change to static method?
-    return [new Cell(6,0), new Cell(6,1), new Cell(6,2), new Cell(6,3)];
+    return [new Cell(5,0), new Cell(5,1), new Cell(5,2), new Cell(5,3)];
+  }
+}
+
+class lPiece extends Piece {
+  constructor(){
+    super();
+    this.cells = lPiece.makeCells();
+  }
+
+  static makeCells(){ //change to static method?
+    return [new Cell(5,0), new Cell(5,1), new Cell(5,2), new Cell(6,2)];
   }
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
   const board = document.querySelector('.board');
   displayNewBoard();
-  const testPiece = new iPiece();
+  const testPiece = new lPiece();
   addPiece(testPiece);
 
   function displayNewBoard(){
