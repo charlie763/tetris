@@ -39,12 +39,17 @@ class Cell{
 
 class Piece{
   constructor(){
-    this.color = "red";
-    // this.color = setRandomColor();
+    // this.color = "red";
+    this.color = Piece.setRandomColor();
   }
 
   static random(){
     return PIECE_OPTIONS[Math.floor(Math.random()*5)]();
+  }
+
+  static setRandomColor(){
+    const COLOR_OPTIONS = ["red", "blue", "yellow", "green", "orange"]
+    return COLOR_OPTIONS[Math.floor(Math.random()*5)];
   }
 
   prepMove(xChange, yChange){
