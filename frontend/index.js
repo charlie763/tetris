@@ -1,4 +1,4 @@
-//change to something like BOARD = Array(26).map(()=>Array(12));
+//change to something like BOARD = Array(26).map(()=>Array(12)); Try Array.from()
 const BOARD = [
   [1,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,1],
@@ -251,6 +251,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     return yCoords.filter((row)=>BOARD[row].every((cell)=>cell!==0)) 
   }
 
+  function collectCellsAbove(rowCoord){
+    return Array.from(Array(rowCoord).keys()).flatMap((row)=>{
+      return BOARD[row].filter((cell)=>typeof cell === "object")
+    });
+  }
+
   function startMovement(interval=500){
     movementInterval = window.setInterval(()=>{
       const endPositions = activePiece.prepMove(0,1)
@@ -259,12 +265,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
         activePiece.moveTo(endPositions);
       } else {
         addPiece(activePiece);
-        completeRows(activePiece).forEach((row)=>{
-          const cellsAbove = collectCellsAbove(row);
-          deleteRow(BOARD[row]);
+        const completedRows = completeRows(activePiece);
+        if (completedRows.length > 0){
+          const cellsAbove = collectCellsAbove(Math.min(...completedRows));
+          completedRows.forEach((row)=>{
+            deleteRow(BOARD[row]);
+            // increaseScore();
+          });
           moveCellsDown(cellsAbove);
-          // increaseScore();
-        });
+        }
         activePiece = Piece.random();
       }
       addPiece(activePiece);
