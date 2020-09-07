@@ -38,8 +38,6 @@ class Cell{
 }
 
 class Piece{
-  //should consist of 4 cells
-  //should have children classes for the different types of pieces
   constructor(){
     this.color = "red";
     // this.color = setRandomColor();
@@ -137,6 +135,7 @@ class sPiece extends Piece {
 }
 
 const PIECE_OPTIONS = [()=> new tPiece(), 
+  //figure out why this needs to get declared down here
   ()=> new iPiece(), 
   ()=> new lPiece(), 
   ()=> new zPiece(), 
@@ -144,6 +143,7 @@ const PIECE_OPTIONS = [()=> new tPiece(),
 ];
 
 document.addEventListener('DOMContentLoaded', ()=>{
+  //note: the key down event listener doesn't start until user clicks
   document.addEventListener('keydown', (e)=>{ //refactor this code
     const keyDownTranslator = {
       ArrowLeft: "left", 
@@ -219,7 +219,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
         endPositions = piece.prepMove(0,1)
         break; 
       case "rotate":
-        // debugger;
         endPositions = piece.prepRotation()
         break;
     }
@@ -231,7 +230,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     addPiece(piece);
   }
 
-  //note: the key down event listener doesn't start until user clicks
   
 });
 
