@@ -30,7 +30,6 @@ const BOARD = [
 ];
 
 class Cell{
-  //should have x and y position properties
   constructor(x, y){
     this.x = x;
     this.y = y;
@@ -43,6 +42,12 @@ class Piece{
   }
 
   static random(){
+    const PIECE_OPTIONS = [()=> new tPiece(), 
+      ()=> new iPiece(), 
+      ()=> new lPiece(), 
+      ()=> new zPiece(), 
+      ()=> new sPiece()
+    ];
     return PIECE_OPTIONS[Math.floor(Math.random()*5)]();
   }
 
@@ -88,7 +93,7 @@ class iPiece extends Piece {
     this.cells = iPiece.makeCells();
   }
 
-  static makeCells(){ //change to static method?
+  static makeCells(){ 
     return [new Cell(5,0), new Cell(5,1), new Cell(5,2), new Cell(5,3)];
   }
 }
@@ -99,7 +104,7 @@ class lPiece extends Piece {
     this.cells = lPiece.makeCells();
   }
 
-  static makeCells(){ //change to static method?
+  static makeCells(){ 
     return [new Cell(5,0), new Cell(5,1), new Cell(5,2), new Cell(6,2)];
   }
 }
@@ -110,7 +115,7 @@ class tPiece extends Piece {
     this.cells = tPiece.makeCells();
   }
 
-  static makeCells(){ //change to static method?
+  static makeCells(){ 
     return [new Cell(4,0), new Cell(5,0), new Cell(6,0), new Cell(5,1)];
   }
 }
@@ -121,7 +126,7 @@ class zPiece extends Piece {
     this.cells = zPiece.makeCells();
   }
 
-  static makeCells(){ //change to static method?
+  static makeCells(){
     return [new Cell(4,1), new Cell(5,1), new Cell(5,0), new Cell(6,0)];
   }
 }
@@ -132,18 +137,10 @@ class sPiece extends Piece {
     this.cells = sPiece.makeCells();
   }
 
-  static makeCells(){ //change to static method?
+  static makeCells(){
     return [new Cell(5,0), new Cell(5,1), new Cell(6,0), new Cell(6,1)];
   }
 }
-
-const PIECE_OPTIONS = [()=> new tPiece(), 
-  //figure out why this needs to get declared down here
-  ()=> new iPiece(), 
-  ()=> new lPiece(), 
-  ()=> new zPiece(), 
-  ()=> new sPiece()
-];
 
 document.addEventListener('DOMContentLoaded', ()=>{
   //declare variables
