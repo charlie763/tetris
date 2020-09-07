@@ -133,7 +133,11 @@ class zPiece extends Piece {
   }
 
   makeCells(){
-    return [new Cell(4,1,this), new Cell(5,1,this), new Cell(5,0,this), new Cell(6,0,this)];
+    const options = [
+      [new Cell(4,1,this), new Cell(5,1,this), new Cell(5,0,this), new Cell(6,0,this)],
+      [new Cell(4,0,this), new Cell(5,1,this), new Cell(5,0,this), new Cell(6,1,this)]
+    ]
+    return options[Math.floor(Math.random()*2)];
   }
 }
 
