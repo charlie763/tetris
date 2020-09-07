@@ -39,7 +39,6 @@ class Cell{
 
 class Piece{
   constructor(){
-    // this.color = "red";
     this.color = Piece.setRandomColor();
   }
 
@@ -59,13 +58,12 @@ class Piece{
   }
 
   prepRotation(){
-    //clean up this code
     const pivot = this.cells[1];
     function xPivot(cell){
-      return cell.x + (pivot.y - cell.y) + (pivot.x - cell.x)
+      return pivot.y - cell.y + pivot.x 
     }
     function yPivot(cell){
-      return cell.y + (pivot.y - cell.y) - (pivot.x - cell.x)
+      return pivot.y - pivot.x + cell.x
     }
     return this.cells.map(cell => {
       return {x: xPivot(cell), y: yPivot(cell)}
