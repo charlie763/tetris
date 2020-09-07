@@ -146,6 +146,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   //declare variables
   const board = document.querySelector('.board');
   const pause = document.querySelector('#pause');
+  const resume = document.querySelector('#resume');
   let activePiece = Piece.random();
   let paused = false;
 
@@ -157,6 +158,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   //note: the key down event listener doesn't start until user clicks
   document.addEventListener('keydown', (e)=>handleKeyDown(e));
   pause.addEventListener('click', pauseGame);
+  resume.addEventListener('click', resumeGame);
 
   //event handlers
   function handleKeyDown(e){
@@ -172,6 +174,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function pauseGame(){
+    window.clearInterval(movementInterval);
+    paused = true;
+  }
+
+  function resumeGame(){
     window.clearInterval(movementInterval);
     paused = true;
   }
@@ -234,17 +241,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   //game logic 
-  const movementInterval = window.setInterval(()=>{
-    const endPositions = activePiece.prepMove(0,1)
-    erasePiece(activePiece);
-    if (activePiece.isValidMove(endPositions)){
-      activePiece.moveTo(endPositions);
-    } else {
+  const movementInterval = startMovement(200);
+  
+  function startMovement(interval=500){
+    window.setInterval(()=>{
+      const endPositions = activePiece.prepMove(0,1)
+      erasePiece(activePiece);
+      if (activePiece.isValidMove(endPositions)){
+        activePiece.moveTo(endPositions);
+      } else {
+        addPiece(activePiece);
+        activePiece = Piece.random();
+      }
       addPiece(activePiece);
-      activePiece = Piece.random();
-    }
-    addPiece(activePiece);
-  }, 200);
+    }, interval);
+  }
   
 });
 
