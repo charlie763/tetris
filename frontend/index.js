@@ -209,13 +209,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
   }
 
-  function erasePiece(piece){
-    for (const cell of piece.cells){
-      BOARD[cell.y][cell.x] = 0;
-      const displayCell = document.getElementById(`x${cell.x}y${cell.y}`);
-      displayCell.style.backgroundColor = "transparent";
-    }
+  function eraseCell(x,y){
+    BOARD[y][x] = 0;
+    const displayCell = document.getElementById(`x${x}y${y}`);
+    displayCell.style.backgroundColor = "transparent";
   }
+
+  function erasePiece(piece){
+    for (const cell of piece.cells){eraseCell(cell.x,cell.y)}
+  }
+
+  // function eraseRow(rowCoord){
+  //   [...Array(11).keys()].slice(1).forEach((xCoord)=>{
+
+  //   });
+  // }
 
   function movePiece(piece, direction){
     // make moves more efficient by doing it per cell?
@@ -268,11 +276,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const completedRows = completeRows(activePiece);
         if (completedRows.length > 0){
           const cellsAbove = collectCellsAbove(Math.min(...completedRows));
-          completedRows.forEach((row)=>{
-            deleteRow(BOARD[row]);
-            // increaseScore();
-          });
-          moveCellsDown(cellsAbove);
+          // completedRows.forEach((y)=>{
+          //   eraseRow(y);
+          //   // increaseScore();
+          // });
+          // moveCellsDown(cellsAbove);
         }
         activePiece = Piece.random();
       }
