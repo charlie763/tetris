@@ -147,6 +147,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const board = document.querySelector('.board');
   const pause = document.querySelector('#pause');
   let activePiece = Piece.random();
+  let paused = false;
 
   //initialize board display
   displayNewBoard();
@@ -165,13 +166,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
       ArrowDown: "down", 
       ArrowUp: "rotate"
     };
-    if (Object.keys(keyDownTranslator).includes(e.key)){
+    if (!paused && Object.keys(keyDownTranslator).includes(e.key)){
       return movePiece(activePiece, keyDownTranslator[e.key]);
     }
   }
 
   function pauseGame(){
     window.clearInterval(movementInterval);
+    paused = true;
   }
 
   //display functions  
