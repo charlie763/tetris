@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function resumeGame(){
     if (paused){
-      startMovement();
+      movement();
       paused = false;
     }
   }
@@ -201,11 +201,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
   }
 
+  function addCell(cell){
+    BOARD[cell.y][cell.x] = cell;
+    displayCell = document.getElementById(`x${cell.x}y${cell.y}`);
+    displayCell.style.backgroundColor = cell.color;
+  }
+
   function addPiece(piece){
     for (const cell of piece.cells){
-      BOARD[cell.y][cell.x] = cell;
-      displayCell = document.getElementById(`x${cell.x}y${cell.y}`);
-      displayCell.style.backgroundColor = piece.color;
+      addCell(cell);
     }
   }
 
@@ -225,6 +229,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
     [...Array(11).keys()].slice(1).forEach((xCoord)=>{
       eraseCell(xCoord,rowCoord)
     });
+  }
+
+  function moveCellsDown(cells){
+    for (const cell of cells){
+      eraseCell(cell.x, cell.y);
+      cell.y++;
+      addCell(cell.x, cell.y);
+    }
   }
 
   function movePiece(piece, direction){
@@ -254,7 +266,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   //game logic 
   let movementInterval;
-  startMovement(200);
+  movement(200);
   
   function completeRows(activePiece){
     const yCoords = mapUnique(activePiece.cells, (cell)=>cell.y);
@@ -267,7 +279,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
   }
 
-  function startMovement(interval=500){
+  function movement(interval=500){
     movementInterval = window.setInterval(()=>{
       const endPositions = activePiece.prepMove(0,1)
       erasePiece(activePiece);
@@ -282,7 +294,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             eraseRow(y);
             // increaseScore();
           });
-          // moveCellsDown(cellsAbove);
+          moveCellsDown(cellsAbove);
         }
         activePiece = Piece.random();
       }
