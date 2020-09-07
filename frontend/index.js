@@ -143,8 +143,12 @@ const PIECE_OPTIONS = [()=> new tPiece(),
 ];
 
 document.addEventListener('DOMContentLoaded', ()=>{
+  //event listeners
   //note: the key down event listener doesn't start until user clicks
-  document.addEventListener('keydown', (e)=>{ //refactor this code
+  document.addEventListener('keydown', (e)=>handleKeyDown(e));
+
+  //event handlers
+  function handleKeyDown(e){
     const keyDownTranslator = {
       ArrowLeft: "left", 
       ArrowRight: "right", 
@@ -154,24 +158,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if (Object.keys(keyDownTranslator).includes(e.key)){
       return movePiece(activePiece, keyDownTranslator[e.key]);
     }
-  });
+  }
+
+  //initialize board display
   const board = document.querySelector('.board');
   displayNewBoard();
   let activePiece = Piece.random();
   addPiece(activePiece);
-
-  //game logic 
-  const movementInterval = window.setInterval(()=>{
-    const endPositions = activePiece.prepMove(0,1)
-    erasePiece(activePiece);
-    if (activePiece.isValidMove(endPositions)){
-      activePiece.moveTo(endPositions);
-    } else {
-      addPiece(activePiece);
-      activePiece = Piece.random();
-    }
-    addPiece(activePiece);
-  }, 200);
 
   //display functions  
   function displayNewBoard(){
@@ -230,6 +223,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
     addPiece(piece);
   }
 
+  //game logic 
+  const movementInterval = window.setInterval(()=>{
+    const endPositions = activePiece.prepMove(0,1)
+    erasePiece(activePiece);
+    if (activePiece.isValidMove(endPositions)){
+      activePiece.moveTo(endPositions);
+    } else {
+      addPiece(activePiece);
+      activePiece = Piece.random();
+    }
+    addPiece(activePiece);
+  }, 200);
   
 });
 
