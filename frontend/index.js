@@ -50,12 +50,12 @@ class Piece{
       ()=> new zPiece(), 
       ()=> new sPiece()
     ];
-    return PIECE_OPTIONS[Math.floor(Math.random()*5)]();
+    return PIECE_OPTIONS[uniqIndex(5)]();
   }
 
   static setRandomColor(){
     const COLOR_OPTIONS = ["red", "blue", "yellow", "green", "orange"]
-    return COLOR_OPTIONS[Math.floor(Math.random()*5)];
+    return COLOR_OPTIONS[uniqIndex(5)];
   }
 
   prepMove(xChange, yChange){
@@ -111,7 +111,7 @@ class lPiece extends Piece {
       [new Cell(5,0,this), new Cell(5,1,this), new Cell(5,2,this), new Cell(6,2,this)],
       [new Cell(6,0,this), new Cell(6,1,this), new Cell(6,2,this), new Cell(5,2,this)]
     ]
-    return options[Math.floor(Math.random()*2)];
+    return options[uniqIndex(2)];
   }
 }
 
@@ -137,7 +137,7 @@ class zPiece extends Piece {
       [new Cell(4,1,this), new Cell(5,1,this), new Cell(5,0,this), new Cell(6,0,this)],
       [new Cell(4,0,this), new Cell(5,1,this), new Cell(5,0,this), new Cell(6,1,this)]
     ]
-    return options[Math.floor(Math.random()*2)];
+    return options[uniqIndex(2)];
   }
 }
 
@@ -326,4 +326,8 @@ function mapUnique(ary, callback){
     } 
   }
   return newArray;
+}
+
+function uniqIndex(max){
+  return Math.floor(Math.random()*max);
 }
