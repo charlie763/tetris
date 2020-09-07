@@ -199,6 +199,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function displayNewBoard(){
     for (const rowIndex in BOARD){
       const row = document.createElement('tr');
+      if (rowIndex<2){
+        row.style.display = "none";
+      }
       for (const colIndex in BOARD[rowIndex]){
         const cell = document.createElement('td');
         cell.id = `x${colIndex}y${rowIndex}`
