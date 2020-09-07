@@ -107,7 +107,11 @@ class lPiece extends Piece {
   }
 
   makeCells(){ 
-    return [new Cell(5,0,this), new Cell(5,1,this), new Cell(5,2,this), new Cell(6,2,this)];
+    const options = [
+      [new Cell(5,0,this), new Cell(5,1,this), new Cell(5,2,this), new Cell(6,2,this)],
+      [new Cell(6,0,this), new Cell(6,1,this), new Cell(6,2,this), new Cell(5,2,this)]
+    ]
+    return options[Math.floor(Math.random()*2)];
   }
 }
 
