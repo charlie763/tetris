@@ -157,6 +157,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const board = document.querySelector('.board');
   const pause = document.querySelector('#pause');
   const resume = document.querySelector('#resume');
+  const score = document.querySelector('#score');
   let activePiece = Piece.random();
   let paused = false;
 
@@ -292,6 +293,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
   }
 
+  function increaseScore(){
+    let scoreNum = parseInt(score.textContent, 10);
+    scoreNum += 10;
+    score.textContent = scoreNum;
+  }
+
   function movement(interval=500){
     movementInterval = window.setInterval(()=>{
       const endPositions = activePiece.prepMove(0,1)
@@ -305,7 +312,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
           const cellsAbove = collectCellsAbove(Math.min(...completedRows));
           completedRows.forEach((y)=>{
             eraseRow(y);
-            // increaseScore();
+            increaseScore();
           });
           moveCellsDown(cellsAbove, completedRows.length);
         }
