@@ -246,9 +246,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   let movementInterval;
   startMovement(200);
   
-  function isRowComplete(activePiece){
+  function completeRows(activePiece){
     const yCoords = mapUnique(activePiece.cells, (cell)=>cell.y);
-    return yCoords.some((row)=>BOARD[row].every((cell)=>cell!==0)) 
+    return yCoords.filter((row)=>BOARD[row].every((cell)=>cell!==0)) 
   }
 
   function startMovement(interval=500){
@@ -259,7 +259,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
         activePiece.moveTo(endPositions);
       } else {
         addPiece(activePiece);
-        console.log(isRowComplete(activePiece));
+        completeRows(activePiece).forEach((row)=>{
+          const cellsAbove = collectCellsAbove(row);
+          deleteRow(BOARD[row]);
+          moveCellsDown(cellsAbove);
+          // increaseScore();
+        });
         activePiece = Piece.random();
       }
       addPiece(activePiece);
