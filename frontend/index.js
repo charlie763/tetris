@@ -143,9 +143,19 @@ const PIECE_OPTIONS = [()=> new tPiece(),
 ];
 
 document.addEventListener('DOMContentLoaded', ()=>{
+  //declare variables
+  const board = document.querySelector('.board');
+  const pause = document.querySelector('#pause');
+  let activePiece = Piece.random();
+
+  //initialize board display
+  displayNewBoard();
+  addPiece(activePiece);
+
   //event listeners
   //note: the key down event listener doesn't start until user clicks
   document.addEventListener('keydown', (e)=>handleKeyDown(e));
+  pause.addEventListener('click', pauseGame);
 
   //event handlers
   function handleKeyDown(e){
@@ -160,11 +170,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
   }
 
-  //initialize board display
-  const board = document.querySelector('.board');
-  displayNewBoard();
-  let activePiece = Piece.random();
-  addPiece(activePiece);
+  function pauseGame(){
+    window.clearInterval(movementInterval);
+  }
 
   //display functions  
   function displayNewBoard(){
