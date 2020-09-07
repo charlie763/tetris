@@ -179,8 +179,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function resumeGame(){
-    window.clearInterval(movementInterval);
-    paused = true;
+    if (paused){
+      startMovement();
+      paused = false;
+    }
   }
 
   //display functions  
@@ -241,10 +243,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   //game logic 
-  const movementInterval = startMovement(200);
+  let movementInterval;
+  startMovement(200);
   
   function startMovement(interval=500){
-    window.setInterval(()=>{
+    movementInterval = window.setInterval(()=>{
       const endPositions = activePiece.prepMove(0,1)
       erasePiece(activePiece);
       if (activePiece.isValidMove(endPositions)){
