@@ -30,9 +30,11 @@ const BOARD = [
 ];
 
 class Cell{
-  constructor(x, y){
+  constructor(x, y, piece){
     this.x = x;
     this.y = y;
+    this.piece = piece;
+    this.color = piece.color;
   }
 }
 
@@ -90,55 +92,55 @@ class Piece{
 class iPiece extends Piece {
   constructor(){
     super();
-    this.cells = iPiece.makeCells();
+    this.cells = this.makeCells();
   }
 
-  static makeCells(){ 
-    return [new Cell(5,0), new Cell(5,1), new Cell(5,2), new Cell(5,3)];
+  makeCells(){ 
+    return [new Cell(5,0,this), new Cell(5,1,this), new Cell(5,2,this), new Cell(5,3,this)];
   }
 }
 
 class lPiece extends Piece {
   constructor(){
     super();
-    this.cells = lPiece.makeCells();
+    this.cells = this.makeCells();
   }
 
-  static makeCells(){ 
-    return [new Cell(5,0), new Cell(5,1), new Cell(5,2), new Cell(6,2)];
+  makeCells(){ 
+    return [new Cell(5,0,this), new Cell(5,1,this), new Cell(5,2,this), new Cell(6,2,this)];
   }
 }
 
 class tPiece extends Piece {
   constructor(){
     super();
-    this.cells = tPiece.makeCells();
+    this.cells = this.makeCells();
   }
 
-  static makeCells(){ 
-    return [new Cell(4,0), new Cell(5,0), new Cell(6,0), new Cell(5,1)];
+  makeCells(){ 
+    return [new Cell(4,0,this), new Cell(5,0,this), new Cell(6,0,this), new Cell(5,1,this)];
   }
 }
 
 class zPiece extends Piece {
   constructor(){
     super();
-    this.cells = zPiece.makeCells();
+    this.cells = this.makeCells();
   }
 
-  static makeCells(){
-    return [new Cell(4,1), new Cell(5,1), new Cell(5,0), new Cell(6,0)];
+  makeCells(){
+    return [new Cell(4,1,this), new Cell(5,1,this), new Cell(5,0,this), new Cell(6,0,this)];
   }
 }
 
 class sPiece extends Piece {
   constructor(){
     super();
-    this.cells = sPiece.makeCells();
+    this.cells = this.makeCells();
   }
 
-  static makeCells(){
-    return [new Cell(5,0), new Cell(5,1), new Cell(6,0), new Cell(6,1)];
+  makeCells(){
+    return [new Cell(5,0,this), new Cell(5,1,this), new Cell(6,0,this), new Cell(6,1,this)];
   }
 }
 
@@ -231,11 +233,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
   }
 
-  function moveCellsDown(cells){
+  function moveCellsDown(cells, rowsDown){
     for (const cell of cells){
       eraseCell(cell.x, cell.y);
-      cell.y++;
-      addCell(cell.x, cell.y);
+      cell.y += rowsDown;
+      addCell(cell);
     }
   }
 
@@ -294,7 +296,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             eraseRow(y);
             // increaseScore();
           });
-          moveCellsDown(cellsAbove);
+          moveCellsDown(cellsAbove, completedRows.length);
         }
         activePiece = Piece.random();
       }
