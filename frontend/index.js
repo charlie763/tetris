@@ -216,14 +216,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function erasePiece(piece){
-    for (const cell of piece.cells){eraseCell(cell.x,cell.y)}
+    for (const cell of piece.cells){
+      eraseCell(cell.x,cell.y);
+    }
   }
 
-  // function eraseRow(rowCoord){
-  //   [...Array(11).keys()].slice(1).forEach((xCoord)=>{
-
-  //   });
-  // }
+  function eraseRow(rowCoord){
+    [...Array(11).keys()].slice(1).forEach((xCoord)=>{
+      eraseCell(xCoord,rowCoord)
+    });
+  }
 
   function movePiece(piece, direction){
     // make moves more efficient by doing it per cell?
@@ -276,10 +278,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const completedRows = completeRows(activePiece);
         if (completedRows.length > 0){
           const cellsAbove = collectCellsAbove(Math.min(...completedRows));
-          // completedRows.forEach((y)=>{
-          //   eraseRow(y);
-          //   // increaseScore();
-          // });
+          completedRows.forEach((y)=>{
+            eraseRow(y);
+            // increaseScore();
+          });
           // moveCellsDown(cellsAbove);
         }
         activePiece = Piece.random();
