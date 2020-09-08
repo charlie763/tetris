@@ -179,6 +179,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
         body: JSON.stringify({name: username})
       }
       fetch(BASE_URL + 'users', configObj)
+        .then(resp => resp.json())
+        .then(json => console.log(json))
     }
   }
 
