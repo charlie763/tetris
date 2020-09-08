@@ -1,4 +1,3 @@
-//change to something like BOARD = Array(26).map(()=>Array(12)); Try Array.from()
 const BOARD = [...Array(24).keys()].map(key=>[1,0,0,0,0,0,0,0,0,0,0,1])
 BOARD.push([1,1,1,1,1,1,1,1,1,1,1,1]);
 
