@@ -6,14 +6,17 @@ class Cell{
   constructor(x, y, piece){
     this.x = x;
     this.y = y;
-    this.piece = piece;
+    this.pieceId = piece.id;
     this.color = piece.color;
   }
 }
 
+let pieceId = 1;
 class Piece{
   constructor(){
     this.color = Piece.setRandomColor();
+    this.id = pieceId;
+    pieceId++;
   }
 
   static random(){
@@ -168,20 +171,23 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function loginUser(e){
     e.preventDefault();
+    const username = document.querySelector('.loginModal input[name="name"]').value;
+    const body = {name: username};
+    debugger;
     if (savingGame){
-      const username = document.querySelector('.loginModal input[name="name"]').value;
-      const configObj = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({name: username})
-      }
-      fetch(BASE_URL + 'users', configObj)
-        .then(resp => resp.json())
-        .then(json => console.log(json))
+      body.last_game = JSON.stringify(BOARD);
     }
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(body)
+    }
+    fetch(BASE_URL + 'users', configObj)
+      .then(resp => resp.json())
+      .then(json => console.log(json))
   }
 
   function pauseGame(){
