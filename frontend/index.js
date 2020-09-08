@@ -131,8 +131,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const resume = document.querySelector('#resume');
   const save = document.querySelector('#save');
   const score = document.querySelector('#score');
+  const submitUser = document.querySelector('#submitUser');
   let activePiece = Piece.random();
+  let loggedIn = false;
   let paused = false;
+  let savingGame = false;
 
   //initialize board display
   displayNewBoard();
@@ -147,6 +150,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     pauseGame();
     saveGame();
   });
+  submitUser.addEventListener('click', (e)=>loginUser(e));
 
   //event handlers
   function handleKeyDown(e){
@@ -158,6 +162,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
     };
     if (!paused && Object.keys(keyDownTranslator).includes(e.key)){
       return movePiece(activePiece, keyDownTranslator[e.key]);
+    }
+  }
+
+  function loginUser(e){
+    e.preventDefault();
+    if (savingGame){
+       // fetch(BASE_URL + '')
+       console.log('reaching out to server')
     }
   }
 
@@ -174,8 +186,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function saveGame(){
-    const loginModal = document.querySelector('.loginModal');
-    loginModal.style.display = 'block';
+    savingGame = true;
+    if (loggedIn===false){
+      const loginModal = document.querySelector('.loginModal');
+      loginModal.style.display = 'block';
+    }
   }
 
   //display functions  
