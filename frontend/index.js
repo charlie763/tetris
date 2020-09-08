@@ -139,11 +139,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const score = document.querySelector('#score');
   const submitUser = document.querySelector('#submitUser');
   let activePiece = Piece.random();
-  let loadingGame = false;
   let loggedIn = false;
+  let loginRequest;
   let paused = false;
-  let username;
-  let savingGame = false;
+  let user;
 
   //initialize board display
   displayNewBoard();
@@ -187,22 +186,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
     } else {
       pauseGame();
       displayLogin();
+      const checkIfLoggedIn = window.setInterval(()=>{
+        if (loginRequest){
+          loginRequest.then(()=>{
+            saveGame();
+            window.clearInterval(checkIfLoggedIn);
+          })
+        }
+      }, 1000)
     }
   }
 
-  function loginUser(e){
+function loginUser(e){
     e.preventDefault();
-    username = document.querySelector('.loginModal input[name="name"]').value;
+    const username = document.querySelector('.loginModal input[name="name"]').value;
     const body = {name: username};
-    if (savingGame){
-      body.last_game = JSON.stringify(BOARD);
-      resumeGame();
-    }
-    if (loadinggame){
-      userPostRequest(body, true, true);
-    } else {
-      userPostRequest(body, true);
-    }
+    loginRequest = userPostRequest(body);
     hideLogin();
   }
 
@@ -219,15 +218,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function loadGame(){
-
+    getLastGame()
   }
 
   function saveGame(){
-    const body = {
-     name: username,
-     last_game: JSON.stringify(BOARD)
-    }
-    userPostRequest(body);
+    const saveRequest = userPatchRequest(JSON.stringify(BOARD));
+    saveRequest.then(resp=> resp.json())
+      .then((json)=>{
+        resumeGame();
+        console.log(json)
+      })
   }
 
   //display functions  
@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
   
   //api calls
-  function userPostRequest(body, loggingIn=false, loadingGame=false){
+  function userPostRequest(body){
     const configObj = {
       method: "POST",
       headers: {
@@ -374,17 +374,28 @@ document.addEventListener('DOMContentLoaded', ()=>{
       },
       body: JSON.stringify(body)
     }
-    fetch(BASE_URL + 'users', configObj)
-      .then(()=>{
-        if (loggingIn){
-          loggedIn=true
-        }
-        if (loadingGame){
-          loadGame();
-        }
-      })
-      // .then(resp => resp.json())
-      // .then(json => console.log(json))
+    return fetch(BASE_URL + 'users', configObj)
+            .then(resp => resp.json())
+            .then(userJson => {
+              user = userJson;
+              loggedIn = true;
+            })
+  }
+
+  function userPatchRequest(game, high_score){
+    const body = {
+      name: user.name,
+      last_game: game
+    }
+    const configObj = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(body)
+    }
+    return fetch(BASE_URL + `users/${user.id}`, configObj);
   }
 
   function getLastGame(){

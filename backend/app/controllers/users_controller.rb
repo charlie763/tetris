@@ -1,11 +1,17 @@
 class UsersController < ApplicationController
   def show
+    user = User.find_by(id: params[:id])
+    render json: user
   end
 
   def create
     user = User.find_or_create_by(name: user_params[:name])
-    user.last_game = user_params[:last_game]
-    user.save
+    render json: user
+  end
+
+  def update
+    user = User.find_by(id: params[:id])
+    user.update(user_params)
     render json: user
   end
 
