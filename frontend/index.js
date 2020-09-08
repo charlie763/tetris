@@ -152,15 +152,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.addEventListener('keydown', (e)=>handleKeyDown(e));
   pause.addEventListener('click', pauseGame);
   resume.addEventListener('click', resumeGame);
-  save.addEventListener('click', ()=>{
-    savingGame = true;
-    if (loggedIn){
-      saveGame();
-    } else {
-      pauseGame();
-      displayLogin();
-    }
-  });
+  save.addEventListener('click', handleSave);
   submitUser.addEventListener('click', (e)=>loginUser(e));
 
   //event handlers
@@ -173,6 +165,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
     };
     if (!paused && Object.keys(keyDownTranslator).includes(e.key)){
       return movePiece(activePiece, keyDownTranslator[e.key]);
+    }
+  }
+
+  function handleSave(){
+    savingGame = true;
+    if (loggedIn){
+      saveGame();
+    } else {
+      pauseGame();
+      displayLogin();
     }
   }
 
