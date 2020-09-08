@@ -12,8 +12,8 @@
   display: inline-block;
 }
 
-.modal{
-  /* display: none; */
+.loginModal{
+  display: none;
   position: fixed;
   z-index: 1;
   top: 40%;

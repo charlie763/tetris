@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const board = document.querySelector('.board');
   const pause = document.querySelector('#pause');
   const resume = document.querySelector('#resume');
+  const save = document.querySelector('#save');
   const score = document.querySelector('#score');
   let activePiece = Piece.random();
   let paused = false;
@@ -142,6 +143,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.addEventListener('keydown', (e)=>handleKeyDown(e));
   pause.addEventListener('click', pauseGame);
   resume.addEventListener('click', resumeGame);
+  save.addEventListener('click', ()=>{
+    pauseGame();
+    saveGame();
+  });
 
   //event handlers
   function handleKeyDown(e){
@@ -166,6 +171,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
       movement();
       paused = false;
     }
+  }
+
+  function saveGame(){
+    const loginModal = document.querySelector('.loginModal');
+    loginModal.style.display = 'block';
   }
 
   //display functions  
