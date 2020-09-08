@@ -131,6 +131,7 @@ class sPiece extends Piece {
 document.addEventListener('DOMContentLoaded', ()=>{
   //declare variables
   const board = document.querySelector('.board');
+  const load = document.querySelector('#load');
   const loginModal = document.querySelector('.loginModal');
   const pause = document.querySelector('#pause');
   const resume = document.querySelector('#resume');
@@ -138,6 +139,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const score = document.querySelector('#score');
   const submitUser = document.querySelector('#submitUser');
   let activePiece = Piece.random();
+  let loadingGame = false;
   let loggedIn = false;
   let paused = false;
   let username;
@@ -150,6 +152,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   //event listeners
   //note: the key down event listener doesn't start until user clicks
   document.addEventListener('keydown', (e)=>handleKeyDown(e));
+  load.addEventListener('click', handleLoad);
   pause.addEventListener('click', pauseGame);
   resume.addEventListener('click', resumeGame);
   save.addEventListener('click', handleSave);
@@ -165,6 +168,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
     };
     if (!paused && Object.keys(keyDownTranslator).includes(e.key)){
       return movePiece(activePiece, keyDownTranslator[e.key]);
+    }
+  }
+
+  function handleLoad(){
+    if (loggedIn){
+      loadGame();
+    } else {
+      pauseGame();
+      displayLogin();
     }
   }
 
@@ -186,7 +198,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
       body.last_game = JSON.stringify(BOARD);
       resumeGame();
     }
-    userPostRequest(body, true);
+    if (loadinggame){
+      userPostRequest(body, true, true);
+    } else {
+      userPostRequest(body, true);
+    }
     hideLogin();
   }
 
@@ -200,6 +216,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
       movement();
       paused = false;
     }
+  }
+
+  function loadGame(){
+
   }
 
   function saveGame(){
@@ -345,7 +365,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
   
   //api calls
-  function userPostRequest(body, loggingIn=false){
+  function userPostRequest(body, loggingIn=false, loadingGame=false){
     const configObj = {
       method: "POST",
       headers: {
@@ -359,10 +379,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
         if (loggingIn){
           loggedIn=true
         }
+        if (loadingGame){
+          loadGame();
+        }
       })
       // .then(resp => resp.json())
       // .then(json => console.log(json))
   }
+
+  function getLastGame(){
+
+  }
+
 });
 
 //utility functions
