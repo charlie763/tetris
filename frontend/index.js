@@ -1,3 +1,4 @@
+const BASE_URL = "http://localhost:3000/"
 const BOARD = [...Array(24).keys()].map(key=>[1,0,0,0,0,0,0,0,0,0,0,1])
 BOARD.push([1,1,1,1,1,1,1,1,1,1,1,1]);
 
@@ -168,8 +169,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function loginUser(e){
     e.preventDefault();
     if (savingGame){
-       // fetch(BASE_URL + '')
-       console.log('reaching out to server')
+      const username = document.querySelector('.loginModal input[name="name"]').value;
+      const configObj = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({name: username})
+      }
+      fetch(BASE_URL + 'users', configObj)
     }
   }
 

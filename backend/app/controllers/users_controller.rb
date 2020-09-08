@@ -3,8 +3,6 @@ class UsersController < ApplicationController
   end
 
   def create
-  end
-
-  def update
+    byebug
   end
 end
