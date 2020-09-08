@@ -201,7 +201,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function saveGame(){
-   
+    const body = {
+     name: username,
+     last_game: JSON.stringify(BOARD)
+    }
+    userPostRequest(body);
   }
 
   //display functions  
