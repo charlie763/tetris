@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   let activePiece = Piece.random();
   let loggedIn = false;
   let paused = false;
+  let username;
   let savingGame = false;
 
   //initialize board display
@@ -152,8 +153,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
   pause.addEventListener('click', pauseGame);
   resume.addEventListener('click', resumeGame);
   save.addEventListener('click', ()=>{
-    pauseGame();
-    saveGame();
+    savingGame = true;
+    if (loggedIn){
+      saveGame();
+    } else {
+      pauseGame();
+      displayLogin();
+    }
   });
   submitUser.addEventListener('click', (e)=>loginUser(e));
 
@@ -172,23 +178,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function loginUser(e){
     e.preventDefault();
-    const username = document.querySelector('.loginModal input[name="name"]').value;
+    username = document.querySelector('.loginModal input[name="name"]').value;
     const body = {name: username};
     if (savingGame){
       body.last_game = JSON.stringify(BOARD);
       resumeGame();
     }
-    const configObj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(body)
-    }
-    fetch(BASE_URL + 'users', configObj)
-      // .then(resp => resp.json())
-      // .then(json => console.log(json))
+    userPostRequest(body, true);
     hideLogin();
   }
 
@@ -205,12 +201,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function saveGame(){
-    savingGame = true;
-    if (loggedIn===false){
-      displayLogin();
-    } else {
-      //statement
-    }
+   
   }
 
   //display functions  
@@ -347,6 +338,25 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }, interval);
   }
   
+  //api calls
+  function userPostRequest(body, loggingIn=false){
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(body)
+    }
+    fetch(BASE_URL + 'users', configObj)
+      .then(()=>{
+        if (loggingIn){
+          loggedIn=true
+        }
+      })
+      // .then(resp => resp.json())
+      // .then(json => console.log(json))
+  }
 });
 
 //utility functions
