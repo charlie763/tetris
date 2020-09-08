@@ -131,6 +131,7 @@ class sPiece extends Piece {
 document.addEventListener('DOMContentLoaded', ()=>{
   //declare variables
   const board = document.querySelector('.board');
+  const loginModal = document.querySelector('.loginModal');
   const pause = document.querySelector('#pause');
   const resume = document.querySelector('#resume');
   const save = document.querySelector('#save');
@@ -173,9 +174,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     e.preventDefault();
     const username = document.querySelector('.loginModal input[name="name"]').value;
     const body = {name: username};
-    debugger;
     if (savingGame){
       body.last_game = JSON.stringify(BOARD);
+      resumeGame();
     }
     const configObj = {
       method: "POST",
@@ -186,8 +187,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
       body: JSON.stringify(body)
     }
     fetch(BASE_URL + 'users', configObj)
-      .then(resp => resp.json())
-      .then(json => console.log(json))
+      // .then(resp => resp.json())
+      // .then(json => console.log(json))
+    hideLogin();
   }
 
   function pauseGame(){
@@ -205,12 +207,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function saveGame(){
     savingGame = true;
     if (loggedIn===false){
-      const loginModal = document.querySelector('.loginModal');
-      loginModal.style.display = 'block';
+      displayLogin();
+    } else {
+      //statement
     }
   }
 
   //display functions  
+  function displayLogin(){
+    loginModal.style.display = 'block';
+  }
+
+  function hideLogin(){
+    loginModal.style.display = 'none';
+  }
+
   function displayNewBoard(){
     for (const rowIndex in BOARD){
       const row = document.createElement('tr');
