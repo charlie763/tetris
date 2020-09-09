@@ -141,9 +141,7 @@ class sPiece extends Piece {
 document.addEventListener('DOMContentLoaded', ()=>{
   //declare variables
   const board = document.querySelector('.board');
-  const endGameModal = document.querySelector('#end-game');
   const load = document.querySelector('#load');
-  const loginModal = document.querySelector('#login');
   const newGame = document.querySelector('#new-game');
   const pause = document.querySelector('#pause');
   const resume = document.querySelector('#resume');
@@ -260,10 +258,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   //display functions  
   function displayLogin(){
+    const loginModal = document.querySelector('#login');
     loginModal.style.display = 'block';
   }
 
   function hideLogin(){
+    const loginModal = document.querySelector('#login');
     loginModal.style.display = 'none';
   }
 
@@ -278,10 +278,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function displayEndGame(){
+    const endGameModal = document.querySelector('#end-game');
     endGameModal.style.display = "block";
   }
 
   function unDisplayEndGame(){
+    const endGameModal = document.querySelector('#end-game');
     endGameModal.style.display = "none";
   }
 
