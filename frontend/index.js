@@ -1,6 +1,5 @@
 const BASE_URL = "http://localhost:3000/"
-let BOARD = [...Array(24).keys()].map(key=>[1,0,0,0,0,0,0,0,0,0,0,1])
-BOARD.push([1,1,1,1,1,1,1,1,1,1,1,1]);
+let BOARD = [];
 
 class Cell{
   constructor(x, y, piece){
@@ -142,27 +141,34 @@ class sPiece extends Piece {
 document.addEventListener('DOMContentLoaded', ()=>{
   //declare variables
   const board = document.querySelector('.board');
+  const endGameModal = document.querySelector('#end-game');
   const load = document.querySelector('#load');
   const loginModal = document.querySelector('#login');
+  const newGame = document.querySelector('#new-game');
   const pause = document.querySelector('#pause');
   const resume = document.querySelector('#resume');
   const save = document.querySelector('#save');
   const score = document.querySelector('#score');
   const submitUser = document.querySelector('#submitUser');
-  let activePiece = Piece.random();
+  let activePiece;
   let loggedIn = false;
   let loginRequest;
+  let movementInterval;
   let paused = false;
   let user;
 
-  //initialize board display
-  displayNewBoard();
-  addPiece(activePiece);
+  //initialize game
+  startNewGame(false);
 
   //event listeners
   //note: the key down event listener doesn't start until user clicks
   document.addEventListener('keydown', (e)=>handleKeyDown(e));
   load.addEventListener('click', handleLoad);
+  newGame.addEventListener('click', ()=> {
+    unDisplayEndGame();
+    paused = false;
+    startNewGame();
+  });
   pause.addEventListener('click', pauseGame);
   resume.addEventListener('click', resumeGame);
   save.addEventListener('click', handleSave);
@@ -213,7 +219,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
   }
 
-function loginUser(e){
+  function loginUser(e){
     e.preventDefault();
     const username = document.querySelector('#login input[name="name"]').value;
     const body = {name: username};
@@ -272,8 +278,11 @@ function loginUser(e){
   }
 
   function displayEndGame(){
-    const endGameModal = document.querySelector('#end-game');
     endGameModal.style.display = "block";
+  }
+
+  function unDisplayEndGame(){
+    endGameModal.style.display = "none";
   }
 
   function displayNewBoard(){
@@ -318,6 +327,16 @@ function loginUser(e){
   function addPiece(piece){
     for (const cell of piece.cells){
       addCell(cell);
+    }
+  }
+
+  function eraseBoard(){
+    for (const rowIndex in BOARD){
+      for (const colIndex in BOARD[rowIndex]){
+        if (BOARD[rowIndex][colIndex]!==1){
+          unDisplayCell(colIndex,rowIndex);
+        }
+      }
     }
   }
 
@@ -372,8 +391,18 @@ function loginUser(e){
   }
 
   //game logic 
-  let movementInterval;
-  movement(200);
+  function startNewGame(notFirstGame=true){
+    BOARD = [...Array(24).keys()].map(key=>[1,0,0,0,0,0,0,0,0,0,0,1])
+    BOARD.push([1,1,1,1,1,1,1,1,1,1,1,1]);
+    if (notFirstGame){
+      eraseBoard();
+    } else {
+      displayNewBoard();
+    }
+    activePiece = Piece.random();
+    addPiece(activePiece);
+    movement(200);
+  }
   
   function completeRows(activePiece){
     const yCoords = mapUnique(activePiece.cells, (cell)=>cell.y);
