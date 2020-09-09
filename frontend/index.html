@@ -7,27 +7,32 @@
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div class="grid-column">
-    <table class="board">
-    </table>
-  </div>
-  <div class="grid-column">
-    <h2>Score: <span id="score">0</span></h2>
-    <button id="pause">Pause</button><br>
-    <button id="resume">Resume</button><br>
-    <button id="save">Save</button><br>
-    <button id="load">Load Last Game</button>
-  </div>
-  <div id="login" class="modal primary-modal">
-    <form>
-      <label for="name">Name: </label>
-      <input type="text" name="name"><br>
-      <input id="submitUser" type="submit" value="submit">
-    </form>
-  </div>
-  <div id="end-game" class="modal">
-    <h1>GAME OVER</h1>
-    <button id="new-game">New Game</button>
+  <div class="page-container">
+    <div class="grid-column menu">
+      <button id="pause">Pause</button><br>
+      <button id="resume">Resume</button><br>
+      <button id="save">Save</button><br>
+      <button id="load">Load Last Game</button>
+    </div>
+    <div class="grid-column">
+      <table class="board">
+      </table>
+    </div>
+    <div class="grid-column score-box">
+      <h2>Score: <span id="score">0</span></h2>
+    </div>
+  
+    <div id="login" class="modal primary-modal">
+      <form>
+        <label for="name">Name: </label>
+        <input type="text" name="name"><br>
+        <input id="submitUser" type="submit" value="submit">
+      </form>
+    </div>
+    <div id="end-game" class="modal">
+      <h1>GAME OVER</h1>
+      <button id="new-game">New Game</button>
+    </div>
   </div>
   <script src="./index.js"></script>
 </body>

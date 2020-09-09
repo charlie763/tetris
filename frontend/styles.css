@@ -4,12 +4,20 @@
 
 .board td{
   border: 1px solid black;
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .grid-column{
-  display: inline-block;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.menu{
+ height: 35rem;
+ padding: 2rem;
+ background-color: blueviolet;
+ width: 20%;
 }
 
 .modal{
@@ -22,6 +30,13 @@
   border-radius: 5px;
   box-shadow: 5px 10px 8px #888888;
   padding: 2rem;
+}
+
+.page-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: start;
 }
 
 .primary-modal{

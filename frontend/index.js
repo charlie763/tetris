@@ -1,6 +1,7 @@
 const BASE_URL = "http://localhost:3000/"
 let BOARD = [];
 
+//game data
 class Cell{
   constructor(x, y, piece){
     this.x = x;
