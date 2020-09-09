@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function endGame(){
     pauseGame();
+    // const game = {}
     displayEndGame();
   }
 
