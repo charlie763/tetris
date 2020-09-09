@@ -1,5 +1,7 @@
 class CompletedGamesController < ApplicationController
   def index
+    games = CompletedGame.high_scores
+    render json: games
   end
 
   def create
