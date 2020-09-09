@@ -158,6 +158,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
   submitUser.addEventListener('click', (e)=>loginUser(e));
 
   //event handlers
+  function afterLogin(callback){
+    const interval = window.setInterval(()=>{
+      if (loginRequest){
+        loginRequest.then(()=>{
+          callback();
+          window.clearInterval(interval);
+        })
+      }
+    }, 1000);
+  }
+
   function handleKeyDown(e){
     const keyDownTranslator = {
       ArrowLeft: "left", 
@@ -176,6 +187,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     } else {
       pauseGame();
       displayLogin();
+      afterLogin(loadGame);
     }
   }
 
@@ -186,14 +198,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     } else {
       pauseGame();
       displayLogin();
-      const checkIfLoggedIn = window.setInterval(()=>{
-        if (loginRequest){
-          loginRequest.then(()=>{
-            saveGame();
-            window.clearInterval(checkIfLoggedIn);
-          })
-        }
-      }, 1000)
+      afterLogin(saveGame);
     }
   }
 
@@ -218,7 +223,9 @@ function loginUser(e){
   }
 
   function loadGame(){
-    getLastGame()
+    const game = userGetRequest()
+                  .then(resp=>resp.json())
+                  .then(json=>console.log(json)); 
   }
 
   function saveGame(){
@@ -231,7 +238,7 @@ function loginUser(e){
     saveRequest.then(resp=> resp.json())
       .then((json)=>{
         resumeGame();
-        console.log(json)
+        // console.log(json)
       })
   }
 
@@ -403,8 +410,8 @@ function loginUser(e){
     return fetch(BASE_URL + `users/${user.id}`, configObj);
   }
 
-  function getLastGame(){
-
+  function userGetRequest(){
+    return fetch(BASE_URL + `users/${user.id}`)
   }
 
 });
