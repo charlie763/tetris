@@ -153,6 +153,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   let loggedIn = false;
   let loginRequest;
   let movementInterval;
+  let movementSpeed = 500;
   let paused = false;
   let user;
 
@@ -233,7 +234,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function resumeGame(){
     if (paused){
-      movement();
+      movement(movementSpeed);
       paused = false;
     }
   }
@@ -404,7 +405,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     activePiece = Piece.random();
     addPiece(activePiece);
-    movement(200);
+    movementSpeed = 500;
+    movement();
   }
   
   function completeRows(activePiece){
@@ -420,9 +422,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function increaseLevel(){
     const scoreNum = parseInt(score.textContent, 10);
-    if (scoreNum/level >= 100){
+    if (scoreNum/level >= 60){
       level++;
     }
+    pauseGame();
+    movementSpeed = 500/level;
+    resumeGame();
   }
 
   function increaseScore(){
@@ -441,7 +446,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     return maxY < 2;
   }
 
-  function movement(interval=500){
+  function movement(interval=movementSpeed){
     movementInterval = window.setInterval(()=>{
       const endPositions = activePiece.prepMove(0,1)
       erasePiece(activePiece);
