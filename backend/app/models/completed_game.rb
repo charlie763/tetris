@@ -1,0 +1,2 @@
+class CompletedGame < ApplicationRecord
+end

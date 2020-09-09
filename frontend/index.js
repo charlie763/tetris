@@ -149,11 +149,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const score = document.querySelector('#score');
   const submitUser = document.querySelector('#submitUser');
   let activePiece;
-  let level = 1;
+  let level;
   let loggedIn = false;
   let loginRequest;
   let movementInterval;
-  let movementSpeed = 500;
+  let movementSpeed;
   let paused = false;
   let user;
 
