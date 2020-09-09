@@ -387,6 +387,15 @@ function loginUser(e){
     score.textContent = scoreNum;
   }
 
+  function endGame(){
+    pauseGame();
+  }
+
+  function isGameOver(){
+    const maxY = Math.max(...activePiece.cells.map((cell)=>cell.y));
+    return maxY < 2;
+  }
+
   function movement(interval=500){
     movementInterval = window.setInterval(()=>{
       const endPositions = activePiece.prepMove(0,1)
@@ -403,6 +412,9 @@ function loginUser(e){
             increaseScore();
           });
           moveCellsDown(cellsAbove, completedRows.length);
+        }
+        if (isGameOver()){
+          endGame();
         }
         activePiece = Piece.random();
       }
