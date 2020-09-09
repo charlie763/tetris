@@ -271,6 +271,11 @@ function loginUser(e){
     dCell.style.backgroundColor = "transparent";
   }
 
+  function displayEndGame(){
+    const endGameModal = document.querySelector('#end-game');
+    endGameModal.style.display = "block";
+  }
+
   function displayNewBoard(){
     for (const rowIndex in BOARD){
       const row = document.createElement('tr');
@@ -389,6 +394,7 @@ function loginUser(e){
 
   function endGame(){
     pauseGame();
+    displayEndGame();
   }
 
   function isGameOver(){
