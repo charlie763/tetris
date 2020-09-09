@@ -1,5 +1,5 @@
 const BASE_URL = "http://localhost:3000/"
-const BOARD = [...Array(24).keys()].map(key=>[1,0,0,0,0,0,0,0,0,0,0,1])
+let BOARD = [...Array(24).keys()].map(key=>[1,0,0,0,0,0,0,0,0,0,0,1])
 BOARD.push([1,1,1,1,1,1,1,1,1,1,1,1]);
 
 class Cell{
@@ -225,7 +225,7 @@ function loginUser(e){
   function loadGame(){
     const game = userGetRequest()
                   .then(resp=>resp.json())
-                  .then(json=>console.log(json)); 
+                  .then(json=>displaySavedGame(JSON.parse(json.last_game))); 
   }
 
   function saveGame(){
@@ -251,6 +251,16 @@ function loginUser(e){
     loginModal.style.display = 'none';
   }
 
+  function displayCell(cell){
+    const dCell = document.getElementById(`x${cell.x}y${cell.y}`);
+    dCell.style.backgroundColor = cell.color;
+  }
+
+  function unDisplayCell(x,y){
+    const dCell = document.getElementById(`x${x}y${y}`);
+    dCell.style.backgroundColor = "transparent";
+  }
+
   function displayNewBoard(){
     for (const rowIndex in BOARD){
       const row = document.createElement('tr');
@@ -269,10 +279,25 @@ function loginUser(e){
     }
   }
 
+  function displaySavedGame(game){
+    score.textContent = game.score
+    activePiece = game.activePiece
+    BOARD = game.board
+    for (const rowIndex in BOARD){
+      for (const colIndex in BOARD[rowIndex]){
+        const bCell = BOARD[rowIndex][colIndex];
+        if (bCell===0){
+          unDisplayCell(colIndex,rowIndex);
+        } else if (typeof bCell === "object"){
+          displayCell(bCell);
+        }
+      }
+    }
+  }
+
   function addCell(cell){
     BOARD[cell.y][cell.x] = cell;
-    displayCell = document.getElementById(`x${cell.x}y${cell.y}`);
-    displayCell.style.backgroundColor = cell.color;
+    displayCell(cell);
   }
 
   function addPiece(piece){
@@ -283,8 +308,7 @@ function loginUser(e){
 
   function eraseCell(x,y){
     BOARD[y][x] = 0;
-    const displayCell = document.getElementById(`x${x}y${y}`);
-    displayCell.style.backgroundColor = "transparent";
+    unDisplayCell(x,y)
   }
 
   function erasePiece(piece){
