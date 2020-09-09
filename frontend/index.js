@@ -37,12 +37,12 @@ class Piece{
       ()=> new zPiece(), 
       ()=> new sPiece()
     ];
-    return PIECE_OPTIONS[uniqIndex(5)]();
+    return PIECE_OPTIONS[randomIndex(5)]();
   }
 
   static setRandomColor(){
     const COLOR_OPTIONS = ["red", "blue", "yellow", "green", "orange"]
-    return COLOR_OPTIONS[uniqIndex(5)];
+    return COLOR_OPTIONS[randomIndex(5)];
   }
 
   prepMove(xChange, yChange){
@@ -98,7 +98,7 @@ class lPiece extends Piece {
       [new Cell(5,0,this), new Cell(5,1,this), new Cell(5,2,this), new Cell(6,2,this)],
       [new Cell(6,0,this), new Cell(6,1,this), new Cell(6,2,this), new Cell(5,2,this)]
     ]
-    return options[uniqIndex(2)];
+    return options[randomIndex(2)];
   }
 }
 
@@ -124,7 +124,7 @@ class zPiece extends Piece {
       [new Cell(4,1,this), new Cell(5,1,this), new Cell(5,0,this), new Cell(6,0,this)],
       [new Cell(4,0,this), new Cell(5,1,this), new Cell(5,0,this), new Cell(6,1,this)]
     ]
-    return options[uniqIndex(2)];
+    return options[randomIndex(2)];
   }
 }
 
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   //declare variables
   const board = document.querySelector('.board');
   const load = document.querySelector('#load');
-  const loginModal = document.querySelector('.loginModal');
+  const loginModal = document.querySelector('#login');
   const pause = document.querySelector('#pause');
   const resume = document.querySelector('#resume');
   const save = document.querySelector('#save');
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 function loginUser(e){
     e.preventDefault();
-    const username = document.querySelector('.loginModal input[name="name"]').value;
+    const username = document.querySelector('#login input[name="name"]').value;
     const body = {name: username};
     loginRequest = userPostRequest(body);
     hideLogin();
@@ -249,7 +249,6 @@ function loginUser(e){
     saveRequest.then(resp=> resp.json())
       .then((json)=>{
         resumeGame();
-        // console.log(json)
       })
   }
 
@@ -293,7 +292,6 @@ function loginUser(e){
   function displaySavedGame(game){
     score.textContent = game.score
     activePiece = new Piece(true, game.activePiece)
-    debugger;
     BOARD = game.board
     for (const rowIndex in BOARD){
       for (const colIndex in BOARD[rowIndex]){
@@ -466,6 +464,6 @@ function mapUnique(ary, callback){
   return newArray;
 }
 
-function uniqIndex(max){
+function randomIndex(max){
   return Math.floor(Math.random()*max);
 }
