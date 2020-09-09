@@ -16,10 +16,17 @@
   display: none;
   position: fixed;
   z-index: 1;
-  top: 40%;
-  left: 40%;
+  top: 35%;
+  left: 35%;
   border: 2px groove black;
   border-radius: 5px;
   box-shadow: 5px 10px 8px #888888;
   padding: 2rem;
+}
+
+.primary-modal{
+  z-index: 2;
+  background-color: white;
+  width: 250px;
+  height: 150px;
 }
