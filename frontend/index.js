@@ -411,10 +411,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     movement();
   }
   
-  function isHighScore(scoreNum){
-    if (scoreNum > user.high_score){
-
-    }
+  function isHighScore(scoreNum, games){
+    const minHighScore = Math.min(...games.map(game => game.score))
+    return scoreNum > minHighScore ? true : false;
   }
 
   function completeRows(activePiece){
@@ -448,18 +447,28 @@ document.addEventListener('DOMContentLoaded', ()=>{
     pauseGame();
     displayEndGame();
     const scoreNum = parseInt(score.textContent, 10)
-    if (isHighScore(scoreNum)){
-      const game = {
-        user_id: user.id,
-        score: scoreNum
-      }
-      if (loggedIn){
-        gamePostRequest(game);
-      } else {
-        displayLogin();
-        afterLogin(()=> gamePostRequest(game));
-      }
-    } 
+    gameGetRequest()
+      .then(resp => resp.json())
+      .then(json => { 
+        if (isHighScore(scoreNum, json)){
+          if (loggedIn){
+            const game = {
+              user_id: user.id,
+              score: scoreNum
+            }
+            gamePostRequest(game);
+          } else {
+            displayLogin();
+            afterLogin(()=> {
+              const game = {
+                user_id: user.id,
+                score: scoreNum
+              }
+              gamePostRequest(game)
+            });
+          }
+        } 
+      });
   }
 
   function isGameOver(){
@@ -545,6 +554,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     return fetch(BASE_URL + 'completed_games', configObj);
   }
 
+  function gameGetRequest(){
+    return fetch(BASE_URL + 'completed_games');
+  }
 
 });
 
