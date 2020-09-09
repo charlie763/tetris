@@ -13,10 +13,21 @@ class Cell{
 
 let pieceId = 1;
 class Piece{
-  constructor(){
-    this.color = Piece.setRandomColor();
-    this.id = pieceId;
-    pieceId++;
+  constructor(fromJson=false, json){
+    if (fromJson){
+      this.color = json.color;
+      this.id = json.id;
+      this.cells = [
+        new Cell(json.cells[0].x, json.cells[0].y, this),
+        new Cell(json.cells[1].x, json.cells[1].y, this),
+        new Cell(json.cells[2].x, json.cells[2].y, this),
+        new Cell(json.cells[3].x, json.cells[3].y, this)
+      ];
+    } else{
+      this.color = Piece.setRandomColor();
+      this.id = pieceId;
+      pieceId++;
+    }
   }
 
   static random(){
@@ -281,7 +292,8 @@ function loginUser(e){
 
   function displaySavedGame(game){
     score.textContent = game.score
-    activePiece = game.activePiece
+    activePiece = new Piece(true, game.activePiece)
+    debugger;
     BOARD = game.board
     for (const rowIndex in BOARD){
       for (const colIndex in BOARD[rowIndex]){
