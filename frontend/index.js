@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const score = document.querySelector('#score');
   const submitUser = document.querySelector('#submitUser');
   let activePiece;
+  let level = 1;
   let loggedIn = false;
   let loginRequest;
   let movementInterval;
@@ -417,6 +418,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
   }
 
+  function increaseLevel(){
+    const scoreNum = parseInt(score.textContent, 10);
+    if (scoreNum/level >= 100){
+      level++;
+    }
+  }
+
   function increaseScore(){
     let scoreNum = parseInt(score.textContent, 10);
     scoreNum += 10;
@@ -447,6 +455,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
           completedRows.forEach((y)=>{
             eraseRow(y);
             increaseScore();
+            increaseLevel();
           });
           moveCellsDown(cellsAbove, completedRows.length);
         }
