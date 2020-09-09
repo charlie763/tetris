@@ -222,7 +222,12 @@ function loginUser(e){
   }
 
   function saveGame(){
-    const saveRequest = userPatchRequest(JSON.stringify(BOARD));
+    const game = {
+      activePiece: activePiece,
+      score: parseInt(score.textContent, 10),
+      board: BOARD
+    }
+    const saveRequest = userPatchRequest(JSON.stringify(game));
     saveRequest.then(resp=> resp.json())
       .then((json)=>{
         resumeGame();
