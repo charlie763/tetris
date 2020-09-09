@@ -440,7 +440,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function endGame(){
     pauseGame();
-    // const game = {}
+    const game = {
+      user_id: user.id,
+      score: parseInt(score.textContent, 10)
+    }
+    gamePostRequest(game);
     displayEndGame();
   }
 
@@ -512,6 +516,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function userGetRequest(){
     return fetch(BASE_URL + `users/${user.id}`)
+  }
+
+  function gamePostRequest(body){
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(body)
+    }
+    return fetch(BASE_URL + 'completed_games', configObj);
   }
 
 });
