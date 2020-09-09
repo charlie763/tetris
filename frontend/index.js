@@ -405,6 +405,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     activePiece = Piece.random();
     addPiece(activePiece);
+    score.textContent = 0;
+    level = 1;
     movementSpeed = 500;
     movement();
   }
