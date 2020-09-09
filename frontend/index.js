@@ -411,6 +411,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     movement();
   }
   
+  function isHighScore(scoreNum){
+    if (scoreNum > user.high_score){
+
+    }
+  }
+
   function completeRows(activePiece){
     const yCoords = mapUnique(activePiece.cells, (cell)=>cell.y);
     return yCoords.filter((row)=>BOARD[row].every((cell)=>cell!==0)) 
@@ -440,12 +446,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function endGame(){
     pauseGame();
-    const game = {
-      user_id: user.id,
-      score: parseInt(score.textContent, 10)
-    }
-    gamePostRequest(game);
     displayEndGame();
+    const scoreNum = parseInt(score.textContent, 10)
+    if (isHighScore(scoreNum)){
+      if (loggedIn){
+        gamePostRequest(game);
+      } else {
+        displayLogin();
+        afterLogin(()=>{
+          const game = {
+            user_id: user.id,
+            score: scoreNum
+          }
+          gamePostRequest(game);
+        });
+      }
+    } 
   }
 
   function isGameOver(){
@@ -501,7 +517,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function userPatchRequest(game, high_score){
     const body = {
       name: user.name,
-      last_game: game
+      last_game: game,
+      high_score: high_score
     }
     const configObj = {
       method: "PATCH",
@@ -529,6 +546,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     return fetch(BASE_URL + 'completed_games', configObj);
   }
+
 
 });
 
