@@ -449,17 +449,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
     displayEndGame();
     const scoreNum = parseInt(score.textContent, 10)
     if (isHighScore(scoreNum)){
+      const game = {
+        user_id: user.id,
+        score: scoreNum
+      }
       if (loggedIn){
         gamePostRequest(game);
       } else {
         displayLogin();
-        afterLogin(()=>{
-          const game = {
-            user_id: user.id,
-            score: scoreNum
-          }
-          gamePostRequest(game);
-        });
+        afterLogin(()=> gamePostRequest(game));
       }
     } 
   }
