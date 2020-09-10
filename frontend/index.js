@@ -142,6 +142,7 @@ class sPiece extends Piece {
 document.addEventListener('DOMContentLoaded', ()=>{
   //declare variables
   const board = document.querySelector('.board');
+  const instructions = document.querySelector('#instructions-button');
   const load = document.querySelector('#load');
   const loginButton = document.querySelector('#login-button');
   const newGame = document.querySelector('#new-game');
@@ -169,6 +170,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   //event listeners
   //note: the key down event listener doesn't start until user clicks
   document.addEventListener('keydown', (e)=>handleKeyDown(e));
+  instructions.addEventListener('click', displayInstructions);
   load.addEventListener('click', handleLoad);
   loginButton.addEventListener('click', displayLogin)
   newGame.addEventListener('click', ()=> {
@@ -320,6 +322,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
     `
     if (!loggedIn){
       endGameModal.innerHTML += '<h4>Login to post score to the Leader Board<h4>'
+    }
+  }
+
+  function displayInstructions(){
+    const instructionsModal = document.querySelector('#instructions');
+    if (instructionsModal.style.display === ""){
+      instructionsModal.style.display = "block";
+    } else {
+      instructionsModal.style.display = "";
     }
   }
 

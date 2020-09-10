@@ -54,7 +54,7 @@ body {
   justify-content: start;
 }
 
-.login-modal{
+.menu-modal{
   display: none;
   background-color: #FE53BB;
   margin-bottom: .5rem;
