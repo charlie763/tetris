@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const submitUser = document.querySelector('#submitUser');
   let activePiece;
   let gameStarted = false;
-  let level;
+  let level=1;
   let loggedIn = false;
   let loginRequest;
   let movementInterval;
@@ -386,10 +386,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function moveCellsDown(cells, rowsDown){
-    for (const cell of cells){
-      eraseCell(cell.x, cell.y);
-      cell.y += rowsDown;
-      addCell(cell);
+    for (let i=cells.length-1; i>=0; i--){
+      eraseCell(cells[i].x, cells[i].y);
+      cells[i].y += rowsDown;
+      addCell(cells[i]);
     }
   }
 
@@ -448,7 +448,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function completeRows(activePiece){
     const yCoords = mapUnique(activePiece.cells, (cell)=>cell.y);
     const completedRows = yCoords.filter((row)=>BOARD[row].every((cell)=>cell!==0)); 
-    console.log(completedRows, 'completed rows');
     return completedRows;
   }
 
@@ -456,7 +455,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const cellsAbove = Array.from(Array(rowCoord).keys()).flatMap((row)=>{
       return BOARD[row].filter((cell)=>typeof cell === "object")
     });
-    console.log(cellsAbove, 'cellsAbove');
     return cellsAbove;
   }
 
