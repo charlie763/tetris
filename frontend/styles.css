@@ -20,7 +20,7 @@ body {
 }
 
 .menu{
- height: 35rem;
+ height: 33.5rem;
  padding: 2rem;
  background-color: #3DC4C9;
  color: #F5D300;
@@ -51,15 +51,8 @@ body {
   justify-content: start;
 }
 
-.primary-modal{
-  z-index: 2;
-  background-color: white;
-  width: 250px;
-  height: 150px;
+.login-modal{
+  display: none;
+  background-color: #FE53BB;
+  width: 100%;
 }
-/* 
-Color ideas
-#08F7FE
-#09FBD3
-#FE53BB
-#F5D300 */

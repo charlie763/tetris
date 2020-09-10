@@ -15,6 +15,14 @@
       <button id="resume">Resume</button><br>
       <button id="save">Save</button><br>
       <button id="load">Load Last Game</button><br>
+      <button id="login">Login</button><br>
+      <div id="login" class="login-modal">
+        <form>
+          <label for="name">Name: </label>
+          <input type="text" name="name"><br>
+          <input id="submitUser" type="submit" value="submit">
+        </form>
+      </div>
       <button id="show-leaderboard">Leader Board</button>
     </div>
     <div class="grid-column">
@@ -27,13 +35,7 @@
       </div>
     </div>
   
-    <div id="login" class="modal primary-modal">
-      <form>
-        <label for="name">Name: </label>
-        <input type="text" name="name"><br>
-        <input id="submitUser" type="submit" value="submit">
-      </form>
-    </div>
+    
     <div id="end-game" class="modal">
       <h1>GAME OVER</h1>
     </div>
