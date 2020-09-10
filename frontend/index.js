@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const saveRequest = userPatchRequest(JSON.stringify(game));
     saveRequest.then(resp=> resp.json())
       .then((json)=>{
-        resumeGame();
+        //success message;
       })
   }
 
@@ -468,7 +468,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function increaseLevel(){
     const scoreNum = parseInt(score.textContent, 10);
-    if (scoreNum/level >= 60){
+    if (scoreNum/level >= 50){
       level++;
     }
     pauseGame();
