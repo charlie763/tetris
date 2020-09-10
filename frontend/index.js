@@ -256,9 +256,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
       .then(resp=>resp.json())
       .then(json=>{
         const game = JSON.parse(json.last_game);
-        debugger;
         movementSpeed = game.movementSpeed;
         level = game.level;
+        unDisplayEndGame();
         displaySavedGame(game);
       }); 
   }
