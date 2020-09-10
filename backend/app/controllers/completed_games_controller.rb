@@ -1,7 +1,7 @@
 class CompletedGamesController < ApplicationController
   def index
     games = CompletedGame.high_scores
-    render json: games
+    render json: games, only: [:score], include: {user: {only: [:name]}}
   end
 
   def create
