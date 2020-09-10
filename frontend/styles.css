@@ -1,9 +1,15 @@
+body {
+  background-color: #09FBD3;
+  color: #FE53BB;
+}
+
 .board {
   border-collapse: collapse;
+  background-color: black;
 }
 
 .board td{
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 1.5rem;
   height: 1.5rem;
 }
@@ -16,8 +22,15 @@
 .menu{
  height: 35rem;
  padding: 2rem;
- background-color: blueviolet;
+ background-color: #3DC4C9;
+ color: #F5D300;
  width: 20%;
+}
+
+.menu button{
+  width:100%;
+  background-color: #FE53BB;
+  color: #F5D300;
 }
 
 .modal{
@@ -44,3 +57,9 @@
   width: 250px;
   height: 150px;
 }
+/* 
+Color ideas
+#08F7FE
+#09FBD3
+#FE53BB
+#F5D300 */
