@@ -307,6 +307,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function displayEndGame(){
     const endGameModal = document.querySelector('#end-game');
     endGameModal.style.display = "block";
+    endGameModal.innerHTML = '<h1>GAME OVER</h1>'
     return endGameModal;
   }
 
