@@ -356,6 +356,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       leaderItem.textContent = `${game.user.name} - ${game.score}`;
       leaderList.appendChild(leaderItem);
     }
+    leaderBoard.style.display = "block";
   }
 
   function displayNewBoard(){

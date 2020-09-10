@@ -78,10 +78,29 @@ body {
 
 .tetris-container{
   margin-left: 8rem;
-  margin-right: 5rem;
+  margin-right: 6rem;
 }
 
 .score-box{
   text-align: center;
   width: 15rem;
 }
+
+.score-box div {
+  display: none;
+  background-color: #F5D300;
+  border-radius: 3px;
+  box-shadow: 2px 5px 4px #3DC4C9;
+  padding: 1rem;
+}
+
+.score-box ul{
+  list-style: none;
+  padding-left: 0;
+}
+
+.score-box li{
+  margin: .75rem;
+  font-size: 1.25rem;
+}
+
