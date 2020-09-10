@@ -428,6 +428,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if (gameStarted){
       initializeBoard();
       eraseBoard();
+      window.clearInterval(movementInterval);
     }
     activePiece = Piece.random();
     addPiece(activePiece);
@@ -446,13 +447,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function completeRows(activePiece){
     const yCoords = mapUnique(activePiece.cells, (cell)=>cell.y);
-    return yCoords.filter((row)=>BOARD[row].every((cell)=>cell!==0)) 
+    const completedRows = yCoords.filter((row)=>BOARD[row].every((cell)=>cell!==0)); 
+    console.log(completedRows, 'completed rows');
+    return completedRows;
   }
 
   function collectCellsAbove(rowCoord){
-    return Array.from(Array(rowCoord).keys()).flatMap((row)=>{
+    const cellsAbove = Array.from(Array(rowCoord).keys()).flatMap((row)=>{
       return BOARD[row].filter((cell)=>typeof cell === "object")
     });
+    console.log(cellsAbove, 'cellsAbove');
+    return cellsAbove;
   }
 
   function increaseLevel(){
@@ -504,7 +509,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     return maxY < 2;
   }
 
-  function movement(interval=movementSpeed){
+  function movement(){
     movementInterval = window.setInterval(()=>{
       const endPositions = activePiece.prepMove(0,1)
       erasePiece(activePiece);
@@ -528,7 +533,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         activePiece = Piece.random();
       }
       addPiece(activePiece);
-    }, interval);
+    }, movementSpeed);
   }
   
   //api calls
