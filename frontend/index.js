@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function handleLeaders(){
     gamesGetRequest().then(resp=>resp.json())
-      .then(json=>console.log(json));
+      .then(games=>displayLeaders(games));
   }
 
   function handleLoad(){
@@ -297,6 +297,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function unDisplayEndGame(){
     const endGameModal = document.querySelector('#end-game');
     endGameModal.style.display = "none";
+  }
+
+  function displayLeaders(games){
+    const leaderBoard = document.querySelector('#leaderboard')
+    leaderBoard.innerHTML = "<h2>High Scores</h2>";
+    const leaderList = document.createElement('ul');
+    leaderBoard.appendChild(leaderList);
+    for (const game of games){
+      const leaderItem = document.createElement('li');
+      leaderItem.textContent = `${game.user.name} - ${game.score}`;
+      leaderList.appendChild(leaderItem);
+    }
   }
 
   function displayNewBoard(){
