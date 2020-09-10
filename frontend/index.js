@@ -302,11 +302,19 @@ document.addEventListener('DOMContentLoaded', ()=>{
   function displayEndGame(){
     const endGameModal = document.querySelector('#end-game');
     endGameModal.style.display = "block";
+    return endGameModal;
   }
 
   function unDisplayEndGame(){
     const endGameModal = document.querySelector('#end-game');
     endGameModal.style.display = "none";
+  }
+
+  function displayHighScore(endGameModal){
+    endGameModal.innerHTML += `<h2>You have a High Score: ${score.textContent}!</h2>`
+    if (!loggedIn){
+      endGameModal.innerHTML += '<h4>Login to post score to the Leader Board<h4>'
+    }
   }
 
   function displayLeaders(games){
@@ -484,12 +492,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function endGame(){
     pauseGame();
-    displayEndGame();
+    const endGameModal = displayEndGame();
     const scoreNum = parseInt(score.textContent, 10)
     gamesGetRequest()
       .then(resp => resp.json())
       .then(json => { 
         if (isHighScore(scoreNum, json)){
+          displayHighScore(endGameModal);
           if (loggedIn){
             const game = {
               user_id: user.id,

@@ -34,16 +34,18 @@ body {
   margin-bottom: .5rem;
 }
 
-.modal{
+.endgame-modal{
   display: none;
   position: fixed;
   z-index: 1;
   top: 35%;
   left: 35%;
-  border: 2px groove black;
+  border: 2px groove #09FBD3;
   border-radius: 5px;
-  box-shadow: 5px 10px 8px #888888;
+  box-shadow: 5px 10px 8px #3DC4C9;
   padding: 2rem;
+  background-color: #F5D300;
+  text-align: center;
 }
 
 .page-container {
