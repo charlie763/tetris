@@ -31,6 +31,7 @@ body {
   width:100%;
   background-color: #FE53BB;
   color: #F5D300;
+  margin-bottom: .5rem;
 }
 
 .modal{
@@ -54,5 +55,14 @@ body {
 .login-modal{
   display: none;
   background-color: #FE53BB;
-  width: 100%;
+  margin-bottom: .5rem;
+  margin-top: -.5rem;
+  padding: 1rem;
+}
+
+.login-modal input {
+  margin-bottom: .25rem;
+  margin-top: .25rem;
+  border: 1px solid #09FBD3;
+  border-radius: 3px;
 }
