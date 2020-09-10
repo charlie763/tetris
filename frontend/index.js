@@ -311,7 +311,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function displayHighScore(endGameModal){
-    endGameModal.innerHTML += `<h2>You have a High Score: ${score.textContent}!</h2>`
+    endGameModal.innerHTML = `
+      <h1>GAME OVER</h1>
+      <h2>You have a High Score: ${score.textContent}!</h2>
+    `
     if (!loggedIn){
       endGameModal.innerHTML += '<h4>Login to post score to the Leader Board<h4>'
     }
