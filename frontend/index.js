@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   //declare variables
   const board = document.querySelector('.board');
   const load = document.querySelector('#load');
+  const loginButton = document.querySelector('#login-button');
   const newGame = document.querySelector('#new-game');
   const pause = document.querySelector('#pause');
   const resume = document.querySelector('#resume');
@@ -168,6 +169,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   //note: the key down event listener doesn't start until user clicks
   document.addEventListener('keydown', (e)=>handleKeyDown(e));
   load.addEventListener('click', handleLoad);
+  loginButton.addEventListener('click', displayLogin)
   newGame.addEventListener('click', ()=> {
     unDisplayEndGame();
     paused = false;
