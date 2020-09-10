@@ -150,6 +150,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const score = document.querySelector('#score');
   const submitUser = document.querySelector('#submitUser');
   let activePiece;
+  let gameStarted = false;
   let level;
   let loggedIn = false;
   let loginRequest;
@@ -159,7 +160,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   let user;
 
   //initialize game
-  startNewGame(false);
+  initializeBoard();
+  displayNewBoard();
 
   //event listeners
   //note: the key down event listener doesn't start until user clicks
@@ -396,13 +398,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   //game logic 
-  function startNewGame(notFirstGame=true){
+  function initializeBoard(){
     BOARD = [...Array(24).keys()].map(key=>[1,0,0,0,0,0,0,0,0,0,0,1])
     BOARD.push([1,1,1,1,1,1,1,1,1,1,1,1]);
-    if (notFirstGame){
+  }
+
+  function startNewGame(){
+    if (gameStarted){
+      initializeBoard();
       eraseBoard();
-    } else {
-      displayNewBoard();
     }
     activePiece = Piece.random();
     addPiece(activePiece);
@@ -410,6 +414,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     level = 1;
     movementSpeed = 500;
     movement();
+    gameStarted = true;
   }
   
   function isHighScore(scoreNum, games){
