@@ -20,11 +20,12 @@ body {
 }
 
 .menu{
- height: 33.5rem;
- padding: 2rem;
- background-color: #3DC4C9;
- color: #F5D300;
- width: 20%;
+  height: 37.5rem;
+  padding-inline: 2rem;
+  background-color: #3DC4C9;
+  color: #F5D300;
+  width: 20%;
+  border-radius: 5px;
 }
 
 .menu button{
@@ -32,6 +33,9 @@ body {
   background-color: #FE53BB;
   color: #F5D300;
   margin-bottom: .5rem;
+  padding: .25rem;
+  font-size: .85rem;
+  border-radius: 3px;
 }
 
 .endgame-modal{
@@ -60,9 +64,11 @@ body {
   margin-bottom: .5rem;
   margin-top: -.5rem;
   padding: 1rem;
+  overflow-y: auto;
+  max-height: 10rem;
 }
 
-.login-modal input {
+.menu-modal input {
   margin-bottom: .25rem;
   margin-top: .25rem;
   border: 1px solid #09FBD3;

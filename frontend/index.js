@@ -170,9 +170,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
   //event listeners
   //note: the key down event listener doesn't start until user clicks
   document.addEventListener('keydown', (e)=>handleKeyDown(e));
-  instructions.addEventListener('click', displayInstructions);
+  instructions.addEventListener('click', ()=>{
+    hideLogin();
+    displayInstructions();
+  });
   load.addEventListener('click', handleLoad);
-  loginButton.addEventListener('click', displayLogin)
+  loginButton.addEventListener('click', ()=>{
+    hideInstructions();
+    displayLogin();
+  });
   newGame.addEventListener('click', ()=> {
     unDisplayEndGame();
     paused = false;
@@ -333,6 +339,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     } else {
       instructionsModal.style.display = "";
     }
+  }
+
+  function hideInstructions(){
+    const instructionsModal = document.querySelector('#instructions');
+    instructionsModal.style.display = "";
   }
 
   function displayLeaders(games){
