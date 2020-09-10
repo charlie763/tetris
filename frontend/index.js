@@ -152,6 +152,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const showLeaderBoard = document.querySelector('#show-leaderboard');
   const submitUser = document.querySelector('#submitUser');
   let activePiece;
+  let gameOver = false;
   let gameStarted = false;
   let level=1;
   let loggedIn = false;
@@ -264,18 +265,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function saveGame(){
-    const game = {
-      activePiece: activePiece,
-      score: parseInt(score.textContent, 10),
-      movementSpeed: movementSpeed,
-      level: level,
-      board: BOARD
+    if (!gameOver){
+      const game = {
+        activePiece: activePiece,
+        score: parseInt(score.textContent, 10),
+        movementSpeed: movementSpeed,
+        level: level,
+        board: BOARD
+      }
+      const saveRequest = userPatchRequest(JSON.stringify(game));
+      saveRequest.then(resp=> resp.json())
+        .then((json)=>{
+          //success message;
+        })
     }
-    const saveRequest = userPatchRequest(JSON.stringify(game));
-    saveRequest.then(resp=> resp.json())
-      .then((json)=>{
-        //success message;
-      })
   }
 
   //display functions  
@@ -456,6 +459,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     movementSpeed = 500;
     movement();
     gameStarted = true;
+    gameOver = false;
     paused = false;
   }
   
