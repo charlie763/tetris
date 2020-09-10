@@ -157,8 +157,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   let loggedIn = false;
   let loginRequest;
   let movementInterval;
-  let movementSpeed;
-  let paused = false;
+  let movementSpeed = 500;
+  let paused = true;
   let user;
 
   //initialize board
@@ -436,6 +436,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     movementSpeed = 500;
     movement();
     gameStarted = true;
+    paused = false;
   }
   
   function isHighScore(scoreNum, games){
