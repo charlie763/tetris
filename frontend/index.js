@@ -148,6 +148,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const resume = document.querySelector('#resume');
   const save = document.querySelector('#save');
   const score = document.querySelector('#score');
+  const showLeaderBoard = document.querySelector('#show-leaderboard');
   const submitUser = document.querySelector('#submitUser');
   let activePiece;
   let gameStarted = false;
@@ -159,7 +160,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   let paused = false;
   let user;
 
-  //initialize game
+  //initialize board
   initializeBoard();
   displayNewBoard();
 
@@ -175,6 +176,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   pause.addEventListener('click', pauseGame);
   resume.addEventListener('click', resumeGame);
   save.addEventListener('click', handleSave);
+  showLeaderBoard.addEventListener('click', handleLeaders)
   submitUser.addEventListener('click', (e)=>loginUser(e));
 
   //event handlers
@@ -199,6 +201,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if (!paused && Object.keys(keyDownTranslator).includes(e.key)){
       return movePiece(activePiece, keyDownTranslator[e.key]);
     }
+  }
+
+  function handleLeaders(){
+    gamesGetRequest().then(resp=>resp.json())
+      .then(json=>console.log(json));
   }
 
   function handleLoad(){
@@ -453,7 +460,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     pauseGame();
     displayEndGame();
     const scoreNum = parseInt(score.textContent, 10)
-    gameGetRequest()
+    gamesGetRequest()
       .then(resp => resp.json())
       .then(json => { 
         if (isHighScore(scoreNum, json)){
@@ -560,7 +567,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     return fetch(BASE_URL + 'completed_games', configObj);
   }
 
-  function gameGetRequest(){
+  function gamesGetRequest(){
     return fetch(BASE_URL + 'completed_games');
   }
 
