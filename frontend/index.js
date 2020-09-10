@@ -252,15 +252,23 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function loadGame(){
-    const game = userGetRequest()
-                  .then(resp=>resp.json())
-                  .then(json=>displaySavedGame(JSON.parse(json.last_game))); 
+    userGetRequest()
+      .then(resp=>resp.json())
+      .then(json=>{
+        const game = JSON.parse(json.last_game);
+        debugger;
+        movementSpeed = game.movementSpeed;
+        level = game.level;
+        displaySavedGame(game);
+      }); 
   }
 
   function saveGame(){
     const game = {
       activePiece: activePiece,
       score: parseInt(score.textContent, 10),
+      movementSpeed: movementSpeed,
+      level: level,
       board: BOARD
     }
     const saveRequest = userPatchRequest(JSON.stringify(game));
