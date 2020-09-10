@@ -15,11 +15,12 @@ body {
 }
 
 .grid-column{
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .menu{
+  margin-left: 1.5rem;
   height: 37.5rem;
   padding-inline: 2rem;
   background-color: #3DC4C9;
@@ -73,4 +74,14 @@ body {
   margin-top: .25rem;
   border: 1px solid #09FBD3;
   border-radius: 3px;
+}
+
+.tetris-container{
+  margin-left: 8rem;
+  margin-right: 5rem;
+}
+
+.score-box{
+  text-align: center;
+  width: 15rem;
 }
