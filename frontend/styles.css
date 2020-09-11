@@ -27,6 +27,7 @@ body {
   color: #F5D300;
   width: 20%;
   border-radius: 5px;
+  text-align: center;
 }
 
 .menu button{
@@ -104,3 +105,24 @@ body {
   font-size: 1.25rem;
 }
 
+
+@media screen and (max-width: 1050px){
+  .tetris-container{
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .menu{
+    margin-right: 1.5rem;
+    height: 35rem;
+    width: 100%;
+  }
+
+  .score-box{
+    width: 80%;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
