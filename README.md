@@ -1,6 +1,8 @@
 ## Description
 This is a portfolio project for the Flatiron Software Engineering program. I built the classic game tetris with a vanilla JS frontend and a Rails API backend. The backend stores users and games allowing you to save and load your last game as well as view high scores.
 
+![screenshot](https://drive.google.com/uc?export=view&id=1_Atu_XIBtnqKQiWYQsWo2I4CjmFMG5ip)
+
 ## Installation and Usage
 To install, clone the repository, cd into the `/backend` directory, and run `bundle install`. Open `index.html` in the `/frontend` directory from your browser to run frontend functionality and start a Rails server, `rails s` from the `/backend` directory to save and load games.
 
