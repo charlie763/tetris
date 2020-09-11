@@ -1,4 +1,5 @@
 Notes.md
+backend/.env
 
 # Ignore bundler config.
 backend/.bundle
