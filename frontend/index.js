@@ -483,7 +483,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
   
   function isHighScore(scoreNum, games){
-    debugger;
     const minHighScore = Math.min(...games.map(game => game.score))
     return scoreNum > minHighScore ? true : false;
   }
