@@ -1,4 +1,4 @@
-const BASE_URL = "http://tetris-rails-api.herokuapp.com/"
+const BASE_URL = "https://tetris-rails-api.herokuapp.com/"
 let BOARD = [];
 
 //game data
