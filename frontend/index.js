@@ -440,7 +440,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function movePiece(piece, direction){
-    // make moves more efficient by doing it per cell?
     let endPositions;
     switch(direction){
       case "left":
