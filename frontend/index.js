@@ -31,11 +31,11 @@ class Piece {
   }
 
   static random () {
-    const PIECE_OPTIONS = [() => new tPiece(),
-      () => new iPiece(),
-      () => new lPiece(),
-      () => new zPiece(),
-      () => new sPiece()
+    const PIECE_OPTIONS = [() => new TPiece(),
+      () => new IPiece(),
+      () => new LPiece(),
+      () => new ZPiece(),
+      () => new SPiece()
     ]
     return PIECE_OPTIONS[randomIndex(5)]()
   }
@@ -76,7 +76,7 @@ class Piece {
   }
 }
 
-class iPiece extends Piece {
+class IPiece extends Piece {
   constructor () {
     super()
     this.cells = this.makeCells()
@@ -87,7 +87,7 @@ class iPiece extends Piece {
   }
 }
 
-class lPiece extends Piece {
+class LPiece extends Piece {
   constructor () {
     super()
     this.cells = this.makeCells()
@@ -102,7 +102,7 @@ class lPiece extends Piece {
   }
 }
 
-class tPiece extends Piece {
+class TPiece extends Piece {
   constructor () {
     super()
     this.cells = this.makeCells()
@@ -113,7 +113,7 @@ class tPiece extends Piece {
   }
 }
 
-class zPiece extends Piece {
+class ZPiece extends Piece {
   constructor () {
     super()
     this.cells = this.makeCells()
@@ -128,7 +128,7 @@ class zPiece extends Piece {
   }
 }
 
-class sPiece extends Piece {
+class SPiece extends Piece {
   constructor () {
     super()
     this.cells = this.makeCells()
@@ -587,20 +587,19 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       body: JSON.stringify(body)
     }
-    const request = fetch(BASE_URL + 'users', configObj)
+    return window.fetch(BASE_URL + 'users', configObj)
       .then(resp => resp.json())
       .then(userJson => {
         user = userJson
         loggedIn = true
       })
-    return request
   }
 
-  function userPatchRequest (game, high_score) {
+  function userPatchRequest (game, highScore) {
     const body = {
       name: user.name,
       last_game: game,
-      high_score: high_score
+      high_score: highScore
     }
     const configObj = {
       method: 'PATCH',
@@ -610,13 +609,11 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       body: JSON.stringify(body)
     }
-    const request =  fetch(BASE_URL + `users/${user.id}`, configObj)
-    return request
+    return window.fetch(BASE_URL + `users/${user.id}`, configObj)
   }
 
   function userGetRequest () {
-    const request =  fetch(BASE_URL + `users/${user.id}`)
-    return request
+    return window.fetch(BASE_URL + `users/${user.id}`)
   }
 
   function gamePostRequest (body) {
@@ -628,13 +625,11 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       body: JSON.stringify(body)
     }
-    const request =  fetch(BASE_URL + 'completed_games', configObj)
-    return request
+    return window.fetch(BASE_URL + 'completed_games', configObj)
   }
 
   function gamesGetRequest () {
-    const request = fetch(BASE_URL + 'completed_games')
-    return request
+    return window.fetch(BASE_URL + 'completed_games')
   }
 })
 
