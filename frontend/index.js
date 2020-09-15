@@ -224,7 +224,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function handleSave(){
-    savingGame = true;
     if (loggedIn){
       saveGame();
     } else {
@@ -275,11 +274,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         level: level,
         board: BOARD
       }
-      const saveRequest = userPatchRequest(JSON.stringify(game));
-      saveRequest.then(resp=> resp.json())
-        .then((json)=>{
-          //success message;
-        })
+      userPatchRequest(JSON.stringify(game));
     }
   }
 
