@@ -3,7 +3,7 @@ This is a portfolio project for the Flatiron Software Engineering program. I bui
 
 The game is playable live at: [https://charlie763.github.io/tetris/frontend/](https://charlie763.github.io/tetris/frontend/)
 
-![screenshot](https://drive.google.com/uc?id=1_Atu_XIBtnqKQiWYQsWo2I4CjmFMG5ip)
+![screenshot](https://i.postimg.cc/gJjS8Dtd/screenshot.png)
 
 ## Installation and Usage
 To install, clone the repository, cd into the `/backend` directory, and run `bundle install`. Open `index.html` in the `/frontend` directory from your browser to run frontend functionality and start a Rails server, `rails s` from the `/backend` directory to save and load games.
