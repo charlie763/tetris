@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   config.cache_classes = false
   config.action_view.cache_template_loading = true
@@ -24,5 +26,4 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
 
   config.active_support.deprecation = :stderr
-
 end
