@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# Controller for the User model. Responds to incoming API requests,
-# and serves up JSON to be used by frontend.
 class UsersController < ApplicationController
   def show
     user = User.find_by(id: params[:id])

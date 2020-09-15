@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Controller for the CompletedGame model. Serves up JSON to be used by frontend.
 class CompletedGamesController < ApplicationController
   def index
     games = CompletedGame.high_scores
