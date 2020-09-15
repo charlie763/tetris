@@ -587,12 +587,13 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       body: JSON.stringify(body)
     }
-    return fetch(BASE_URL + 'users', configObj)
+    const request = fetch(BASE_URL + 'users', configObj)
       .then(resp => resp.json())
       .then(userJson => {
         user = userJson
         loggedIn = true
       })
+    return request
   }
 
   function userPatchRequest (game, high_score) {
@@ -609,11 +610,13 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       body: JSON.stringify(body)
     }
-    return fetch(BASE_URL + `users/${user.id}`, configObj)
+    const request =  fetch(BASE_URL + `users/${user.id}`, configObj)
+    return request
   }
 
   function userGetRequest () {
-    return fetch(BASE_URL + `users/${user.id}`)
+    const request =  fetch(BASE_URL + `users/${user.id}`)
+    return request
   }
 
   function gamePostRequest (body) {
@@ -625,11 +628,13 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       body: JSON.stringify(body)
     }
-    return fetch(BASE_URL + 'completed_games', configObj)
+    const request =  fetch(BASE_URL + 'completed_games', configObj)
+    return request
   }
 
   function gamesGetRequest () {
-    return fetch(BASE_URL + 'completed_games')
+    const request = fetch(BASE_URL + 'completed_games')
+    return request
   }
 })
 
@@ -638,7 +643,7 @@ function mapUnique (ary, callback) {
   const newArray = []
   const uniqTracker = {}
   for (const elem of ary) {
-    mappedElem = callback(elem)
+    const mappedElem = callback(elem)
     if (uniqTracker[mappedElem] === undefined) {
       uniqTracker[mappedElem] = true
       newArray.push(mappedElem)
