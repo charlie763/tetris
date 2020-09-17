@@ -1,3 +1,4 @@
+//This file contains all the functions that generate fetch requests to the backend api
 const BASE_URL = 'http://localhost:3000/'
 
 function userPostRequest (body) {

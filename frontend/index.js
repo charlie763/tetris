@@ -1,3 +1,5 @@
+//This is the main js file. It handles interaction between different components of the code as well being 
+//the main interface for DOM events.
 let activePiece
 let gameOver = false
 let gameStarted = false

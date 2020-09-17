@@ -1,3 +1,4 @@
+//This file contains basic data structures and classes of the Board: board, cells and pieces
 let BOARD = []
 
 function initializeBoard () {

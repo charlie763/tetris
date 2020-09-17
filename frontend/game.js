@@ -1,3 +1,4 @@
+//This file contains functions dictating game logic: loading, saving, starting new games, moving pieces, etc.
 function pauseGame () {
   window.clearInterval(movementInterval)
   paused = true

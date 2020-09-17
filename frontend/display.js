@@ -1,3 +1,5 @@
+//This file contains functions which handle most of the display logic for the DOM. These functions often
+//get called by game logic.
 function displayLogin () {
   hideInstructions()
   const loginModal = document.querySelector('#login')
