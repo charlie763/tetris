@@ -7,6 +7,7 @@ let loginRequest
 let movementInterval
 let movementSpeed = 500
 let paused = true
+let score
 let user
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const pause = document.querySelector('#pause')
   const resume = document.querySelector('#resume')
   const save = document.querySelector('#save')
-  const score = document.querySelector('#score')
+  score = document.querySelector('#score')
   const showLeaderBoard = document.querySelector('#show-leaderboard')
   const submitUser = document.querySelector('#submitUser')
 
@@ -105,21 +106,3 @@ document.addEventListener('DOMContentLoaded', () => {
     hideLogin()
   }
 })
-
-// utility functions
-function mapUnique (ary, callback) {
-  const newArray = []
-  const uniqTracker = {}
-  for (const elem of ary) {
-    const mappedElem = callback(elem)
-    if (uniqTracker[mappedElem] === undefined) {
-      uniqTracker[mappedElem] = true
-      newArray.push(mappedElem)
-    }
-  }
-  return newArray
-}
-
-function randomIndex (max) {
-  return Math.floor(Math.random() * max)
-}
