@@ -1,4 +1,13 @@
-const BASE_URL = 'http://localhost:3000/'
+let activePiece
+let gameOver = false
+let gameStarted = false
+let level = 1
+let loggedIn = false
+let loginRequest
+let movementInterval
+let movementSpeed = 500
+let paused = true
+let user
 
 document.addEventListener('DOMContentLoaded', () => {
   // declare variables
@@ -13,16 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const score = document.querySelector('#score')
   const showLeaderBoard = document.querySelector('#show-leaderboard')
   const submitUser = document.querySelector('#submitUser')
-  let activePiece
-  let gameOver = false
-  let gameStarted = false
-  let level = 1
-  let loggedIn = false
-  let loginRequest
-  let movementInterval
-  let movementSpeed = 500
-  let paused = true
-  let user
 
   // initialize board
   initializeBoard()
@@ -99,6 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const username = document.querySelector('#login input[name="name"]').value
     const body = { name: username }
     loginRequest = userPostRequest(body)
+    loginRequest.then(resp => resp.json())
+      .then(userJson => {
+        user = userJson
+        loggedIn = true
+      })
     hideLogin()
   }
 
@@ -283,37 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  function moveCellsDown (cells, rowsDown) {
-    for (let i = cells.length - 1; i >= 0; i--) {
-      eraseCell(cells[i].x, cells[i].y)
-      cells[i].y += rowsDown
-      addCell(cells[i])
-    }
-  }
-
-  function movePiece (piece, direction) {
-    let endPositions
-    switch (direction) {
-      case 'left':
-        endPositions = piece.prepMove(-1, 0)
-        break
-      case 'right':
-        endPositions = piece.prepMove(1, 0)
-        break
-      case 'down':
-        endPositions = piece.prepMove(0, 1)
-        break
-      case 'rotate':
-        endPositions = piece.prepRotation()
-        break
-    }
-
-    erasePiece(piece)
-    if (piece.isValidMove(endPositions)) {
-      piece.moveTo(endPositions)
-    }
-    addPiece(piece)
-  }
+  
 
   // game logic
 
@@ -407,6 +381,38 @@ document.addEventListener('DOMContentLoaded', () => {
     return maxY < 2
   }
 
+  function moveCellsDown (cells, rowsDown) {
+    for (let i = cells.length - 1; i >= 0; i--) {
+      eraseCell(cells[i].x, cells[i].y)
+      cells[i].y += rowsDown
+      addCell(cells[i])
+    }
+  }
+
+  function movePiece (piece, direction) {
+    let endPositions
+    switch (direction) {
+      case 'left':
+        endPositions = piece.prepMove(-1, 0)
+        break
+      case 'right':
+        endPositions = piece.prepMove(1, 0)
+        break
+      case 'down':
+        endPositions = piece.prepMove(0, 1)
+        break
+      case 'rotate':
+        endPositions = piece.prepRotation()
+        break
+    }
+
+    erasePiece(piece)
+    if (piece.isValidMove(endPositions)) {
+      piece.moveTo(endPositions)
+    }
+    addPiece(piece)
+  }
+
   function movement () {
     movementInterval = window.setInterval(() => {
       const endPositions = activePiece.prepMove(0, 1)
@@ -432,61 +438,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       addPiece(activePiece)
     }, movementSpeed)
-  }
-
-  // api calls
-  function userPostRequest (body) {
-    const configObj = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify(body)
-    }
-    return window.fetch(BASE_URL + 'users', configObj)
-      .then(resp => resp.json())
-      .then(userJson => {
-        user = userJson
-        loggedIn = true
-      })
-  }
-
-  function userPatchRequest (game, highScore) {
-    const body = {
-      name: user.name,
-      last_game: game,
-      high_score: highScore
-    }
-    const configObj = {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify(body)
-    }
-    return window.fetch(BASE_URL + `users/${user.id}`, configObj)
-  }
-
-  function userGetRequest () {
-    return window.fetch(BASE_URL + `users/${user.id}`)
-  }
-
-  function gamePostRequest (body) {
-    const configObj = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify(body)
-    }
-    return window.fetch(BASE_URL + 'completed_games', configObj)
-  }
-
-  function gamesGetRequest () {
-    return window.fetch(BASE_URL + 'completed_games')
   }
 })
 
