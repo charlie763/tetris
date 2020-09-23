@@ -55,7 +55,7 @@ function startNewGame () {
 
 function isHighScore (scoreNum, games) {
   let minHighScore
-  if (games.length > 0) {
+  if (games.length >= 10) {
     minHighScore = Math.min(...games.map(game => game.score))
   } else {
     minHighScore = 0
