@@ -1,5 +1,5 @@
 ## Description
-This is a portfolio project for the Flatiron Software Engineering program. I built the classic game tetris with a vanilla JS frontend and a Rails API backend. The backend stores users and games allowing you to save and load your last game as well as view high scores.
+I built the classic game tetris with a vanilla JS frontend and a Rails API backend. The backend stores users and games allowing you to save and load your last game as well as view high scores.
 
 The game is playable live at: [https://charlie763.github.io/tetris/frontend/](https://charlie763.github.io/tetris/frontend/)
 
